@@ -1,0 +1,411 @@
+# 🚀 Conditional Statements (if, if-else, switch) in Go
+
+## 📖 What are Conditional Statements?
+
+Conditional statements are used to make decisions in a program.
+
+They execute different blocks of code based on whether a condition is **true** or **false**.
+
+Go provides three main conditional statements:
+
+* if
+* if-else
+* switch
+
+---
+
+# 🔹 1. if Statement
+
+The `if` statement executes a block of code only if the condition is true.
+
+## Syntax
+
+```go
+if condition {
+    // code
+}
+```
+
+---
+
+## Example
+
+### Problem:
+
+Check whether a student has passed.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    marks := 75
+
+    if marks >= 35 {
+        fmt.Println("Student Passed")
+    }
+}
+```
+
+### Output
+
+```text
+Student Passed
+```
+
+---
+
+# 🔹 2. if-else Statement
+
+If the condition is true, the `if` block executes; otherwise, the `else` block executes.
+
+## Syntax
+
+```go
+if condition {
+    // code
+} else {
+    // code
+}
+```
+
+---
+
+## Example
+
+### Problem:
+
+Check whether a person is eligible to vote.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    age := 17
+
+    if age >= 18 {
+        fmt.Println("Eligible for Voting")
+    } else {
+        fmt.Println("Not Eligible for Voting")
+    }
+}
+```
+
+### Output
+
+```text
+Not Eligible for Voting
+```
+
+---
+
+# 🔹 3. if-else if Ladder
+
+Used to check multiple conditions.
+
+## Example
+
+### Problem:
+
+Find the grade of a student.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    marks := 82
+
+    if marks >= 90 {
+        fmt.Println("Grade A")
+    } else if marks >= 75 {
+        fmt.Println("Grade B")
+    } else if marks >= 50 {
+        fmt.Println("Grade C")
+    } else {
+        fmt.Println("Fail")
+    }
+}
+```
+
+### Output
+
+```text
+Grade B
+```
+
+---
+
+# 🔹 4. Nested if Statement
+
+An `if` statement inside another `if` statement.
+
+## Example
+
+### Problem:
+
+Check whether a student is eligible for a scholarship.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    marks := 92
+    income := 40000
+
+    if marks >= 90 {
+        if income < 50000 {
+            fmt.Println("Scholarship Approved")
+        }
+    }
+}
+```
+
+### Output
+
+```text
+Scholarship Approved
+```
+
+---
+
+# 🔹 5. switch Statement
+
+The `switch` statement is used when there are multiple possible values.
+
+## Syntax
+
+```go
+switch expression {
+case value1:
+    // code
+case value2:
+    // code
+default:
+    // code
+}
+```
+
+---
+
+## Example
+
+### Problem:
+
+Display the day of the week.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    day := 3
+
+    switch day {
+    case 1:
+        fmt.Println("Monday")
+    case 2:
+        fmt.Println("Tuesday")
+    case 3:
+        fmt.Println("Wednesday")
+    default:
+        fmt.Println("Invalid Day")
+    }
+}
+```
+
+### Output
+
+```text
+Wednesday
+```
+
+---
+
+# 📝 Real-Life Problems
+
+## Problem 1: Even or Odd
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    number := 10
+
+    if number%2 == 0 {
+        fmt.Println("Even Number")
+    } else {
+        fmt.Println("Odd Number")
+    }
+}
+```
+
+---
+
+## Problem 2: Largest of Two Numbers
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    a := 15
+    b := 20
+
+    if a > b {
+        fmt.Println("A is Largest")
+    } else {
+        fmt.Println("B is Largest")
+    }
+}
+```
+
+---
+
+## Problem 3: Positive or Negative Number
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    num := -5
+
+    if num >= 0 {
+        fmt.Println("Positive Number")
+    } else {
+        fmt.Println("Negative Number")
+    }
+}
+```
+
+---
+
+## Problem 4: Traffic Signal
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    signal := "Red"
+
+    switch signal {
+    case "Red":
+        fmt.Println("Stop")
+    case "Yellow":
+        fmt.Println("Ready")
+    case "Green":
+        fmt.Println("Go")
+    }
+}
+```
+
+---
+
+## Problem 5: ATM Balance Check
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    balance := 5000
+    withdraw := 3000
+
+    if withdraw <= balance {
+        fmt.Println("Transaction Successful")
+    } else {
+        fmt.Println("Insufficient Balance")
+    }
+}
+```
+
+---
+
+# 📊 Difference Between if-else and switch
+
+| if-else                     | switch                    |
+| --------------------------- | ------------------------- |
+| Used for conditions         | Used for multiple choices |
+| More flexible               | Cleaner for many cases    |
+| Can use complex expressions | Best for fixed values     |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a conditional statement?
+
+A conditional statement is used to make decisions based on a condition.
+
+---
+
+### Q2. Which conditional statements are available in Go?
+
+* if
+* if-else
+* if-else if
+* Nested if
+* switch
+
+---
+
+### Q3. Which statement is better for multiple choices?
+
+```text
+switch
+```
+
+---
+
+### Q4. Can we use nested if in Go?
+
+Yes.
+
+---
+
+### Q5. What is the default block in switch?
+
+```text
+default
+```
+
+It executes when no case matches.
+
+---
+
+# 📝 Quick Revision
+
+```text
+Conditional Statements
+          │
+          ├── if
+          ├── if-else
+          ├── if-else if
+          ├── Nested if
+          └── switch
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Conditional statements are used to control the flow of a program by executing different blocks of code based on whether a condition is true or false.**
+
+---
+
+⭐ **Next Topic:** Loops in Go (for Loop, Nested Loop, Break, Continue)
