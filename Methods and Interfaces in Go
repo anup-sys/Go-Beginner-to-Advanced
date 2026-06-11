@@ -1,0 +1,423 @@
+# 🚀 Methods and Interfaces in Go
+
+## 📖 What is a Method?
+
+A **Method** is a function associated with a particular data type (usually a struct).
+
+Methods allow objects to have their own behavior.
+
+---
+
+# 🔹 Syntax of a Method
+
+```go
+func (receiver DataType) methodName() {
+    // code
+}
+```
+
+* **Receiver** → The variable that receives the method.
+* **DataType** → Usually a struct.
+* **methodName** → Name of the method.
+
+---
+
+# 🛠 Simple Method Example
+
+### Problem:
+
+Calculate the area of a rectangle.
+
+```go
+package main
+
+import "fmt"
+
+type Rectangle struct {
+    Length int
+    Width  int
+}
+
+func (r Rectangle) Area() int {
+    return r.Length * r.Width
+}
+
+func main() {
+    rect := Rectangle{10, 5}
+
+    fmt.Println("Area =", rect.Area())
+}
+```
+
+### Output
+
+```text
+Area = 50
+```
+
+---
+
+# 🔹 Method with Pointer Receiver
+
+A pointer receiver allows the method to modify the original object.
+
+### Problem:
+
+Increase employee salary.
+
+```go
+package main
+
+import "fmt"
+
+type Employee struct {
+    Salary int
+}
+
+func (e *Employee) IncreaseSalary() {
+    e.Salary += 5000
+}
+
+func main() {
+    emp := Employee{30000}
+
+    emp.IncreaseSalary()
+
+    fmt.Println("Salary =", emp.Salary)
+}
+```
+
+### Output
+
+```text
+Salary = 35000
+```
+
+---
+
+# 📝 Real-Life Method Problems
+
+## Problem 1: Student Details
+
+```go
+package main
+
+import "fmt"
+
+type Student struct {
+    Name string
+}
+
+func (s Student) Display() {
+    fmt.Println("Student Name:", s.Name)
+}
+
+func main() {
+    student := Student{"Anup"}
+
+    student.Display()
+}
+```
+
+---
+
+## Problem 2: Circle Area
+
+```go
+package main
+
+import "fmt"
+
+type Circle struct {
+    Radius float64
+}
+
+func (c Circle) Area() float64 {
+    return 3.14 * c.Radius * c.Radius
+}
+
+func main() {
+    circle := Circle{7}
+
+    fmt.Println(circle.Area())
+}
+```
+
+---
+
+# 🚀 What is an Interface?
+
+An **Interface** is a collection of method signatures.
+
+Any type that implements those methods automatically satisfies the interface.
+
+---
+
+# 🔹 Interface Syntax
+
+```go
+type InterfaceName interface {
+    methodName()
+}
+```
+
+---
+
+# 🛠 Simple Interface Example
+
+### Problem:
+
+Create an interface for shapes.
+
+```go
+package main
+
+import "fmt"
+
+type Shape interface {
+    Area() int
+}
+
+type Rectangle struct {
+    Length int
+    Width  int
+}
+
+func (r Rectangle) Area() int {
+    return r.Length * r.Width
+}
+
+func main() {
+    var s Shape
+
+    s = Rectangle{10, 5}
+
+    fmt.Println(s.Area())
+}
+```
+
+### Output
+
+```text
+50
+```
+
+---
+
+# 📝 Real-Life Interface Problems
+
+## Problem 1: Animal Sound
+
+```go
+package main
+
+import "fmt"
+
+type Animal interface {
+    Sound()
+}
+
+type Dog struct{}
+
+func (d Dog) Sound() {
+    fmt.Println("Dog Barks")
+}
+
+func main() {
+    var a Animal
+
+    a = Dog{}
+
+    a.Sound()
+}
+```
+
+### Output
+
+```text
+Dog Barks
+```
+
+---
+
+## Problem 2: Vehicle Start
+
+```go
+package main
+
+import "fmt"
+
+type Vehicle interface {
+    Start()
+}
+
+type Car struct{}
+
+func (c Car) Start() {
+    fmt.Println("Car Started")
+}
+
+func main() {
+    var v Vehicle
+
+    v = Car{}
+
+    v.Start()
+}
+```
+
+---
+
+## Problem 3: Payment System
+
+```go
+package main
+
+import "fmt"
+
+type Payment interface {
+    Pay()
+}
+
+type UPI struct{}
+
+func (u UPI) Pay() {
+    fmt.Println("Payment Successful")
+}
+
+func main() {
+    var p Payment
+
+    p = UPI{}
+
+    p.Pay()
+}
+```
+
+---
+
+# 📊 Difference Between Function and Method
+
+| Function        | Method                 |
+| --------------- | ---------------------- |
+| Independent     | Associated with a type |
+| No Receiver     | Has Receiver           |
+| Called Directly | Called using Object    |
+
+---
+
+# 📊 Difference Between Struct and Interface
+
+| Struct           | Interface                  |
+| ---------------- | -------------------------- |
+| Stores Data      | Stores Behavior            |
+| Contains Fields  | Contains Method Signatures |
+| Object Blueprint | Contract                   |
+
+---
+
+# 🎯 Advantages of Interfaces
+
+* Code Reusability
+* Flexibility
+* Polymorphism
+* Loose Coupling
+* Easy Testing
+
+---
+
+# 📌 Real-Life Uses
+
+### Methods
+
+* Bank Account Operations
+* Student Management
+* Employee Management
+* Shopping Cart
+
+### Interfaces
+
+* Payment Gateway
+* Notification System
+* Vehicle Management
+* Animal Simulation
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a method?
+
+A method is a function associated with a specific data type.
+
+---
+
+### Q2. What is a receiver?
+
+A receiver is the variable that allows a method to be attached to a type.
+
+Example:
+
+```go
+func (r Rectangle) Area() int
+```
+
+`r` is the receiver.
+
+---
+
+### Q3. What is an interface?
+
+An interface is a collection of method signatures.
+
+---
+
+### Q4. Does Go support inheritance?
+
+No.
+
+Go achieves polymorphism using interfaces.
+
+---
+
+### Q5. Does a type need to explicitly implement an interface?
+
+No.
+
+If a type has all required methods, it automatically implements the interface.
+
+---
+
+### Q6. What is the advantage of pointer receivers?
+
+Pointer receivers can modify the original object and avoid unnecessary copying.
+
+---
+
+# 📝 Quick Revision
+
+```text
+Methods
+    │
+    ├── Receiver
+    ├── Struct
+    ├── Value Receiver
+    └── Pointer Receiver
+
+Interfaces
+    │
+    ├── Method Signatures
+    ├── Polymorphism
+    ├── Loose Coupling
+    └── Automatic Implementation
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Methods add behavior to data types, while Interfaces define a contract that different types can implement.**
+
+---
+
+⭐ **Next Topic:** Error Handling in Go
