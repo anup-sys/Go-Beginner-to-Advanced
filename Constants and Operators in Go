@@ -1,0 +1,411 @@
+# 🚀 Constants and Operators in Go
+
+## 📖 What are Constants?
+
+A **constant** is a fixed value that cannot be changed during the execution of a program.
+
+Once declared, its value remains the same.
+
+---
+
+# 🛠 Declaring Constants
+
+Use the `const` keyword.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    const pi = 3.14
+
+    fmt.Println(pi)
+}
+```
+
+### Output
+
+```text
+3.14
+```
+
+---
+
+# 📚 Characteristics of Constants
+
+* Value cannot be modified.
+* Declared using `const`.
+* Improves code readability.
+* Prevents accidental changes.
+
+---
+
+# 📝 Real-Life Example
+
+### Problem:
+
+The value of GST (Goods and Services Tax) is fixed at 18%. Calculate the final price.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    const GST = 18
+
+    price := 1000
+    total := price + (price * GST / 100)
+
+    fmt.Println("Final Price =", total)
+}
+```
+
+### Output
+
+```text
+Final Price = 1180
+```
+
+---
+
+# 🔢 Operators in Go
+
+Operators are special symbols used to perform operations on variables and values.
+
+---
+
+# 1. Arithmetic Operators
+
+| Operator | Meaning        |
+| -------- | -------------- |
+| +        | Addition       |
+| -        | Subtraction    |
+| *        | Multiplication |
+| /        | Division       |
+| %        | Modulus        |
+
+---
+
+## Example
+
+### Problem:
+
+Calculate the sum of two numbers.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    a := 20
+    b := 10
+
+    fmt.Println("Addition =", a+b)
+    fmt.Println("Subtraction =", a-b)
+    fmt.Println("Multiplication =", a*b)
+    fmt.Println("Division =", a/b)
+    fmt.Println("Remainder =", a%b)
+}
+```
+
+### Output
+
+```text
+Addition = 30
+Subtraction = 10
+Multiplication = 200
+Division = 2
+Remainder = 0
+```
+
+---
+
+# 2. Assignment Operators
+
+| Operator | Example |
+| -------- | ------- |
+| =        | a = 10  |
+| +=       | a += 5  |
+| -=       | a -= 5  |
+| *=       | a *= 5  |
+| /=       | a /= 5  |
+| %=       | a %= 5  |
+
+---
+
+## Example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    x := 10
+
+    x += 5
+
+    fmt.Println(x)
+}
+```
+
+### Output
+
+```text
+15
+```
+
+---
+
+# 3. Comparison Operators
+
+Used to compare two values.
+
+| Operator | Meaning               |
+| -------- | --------------------- |
+| ==       | Equal to              |
+| !=       | Not Equal             |
+| >        | Greater Than          |
+| <        | Less Than             |
+| >=       | Greater Than or Equal |
+| <=       | Less Than or Equal    |
+
+---
+
+## Example
+
+### Problem:
+
+Check whether two marks are equal.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    marks1 := 90
+    marks2 := 90
+
+    fmt.Println(marks1 == marks2)
+}
+```
+
+### Output
+
+```text
+true
+```
+
+---
+
+# 4. Logical Operators
+
+| Operator | Meaning     |   |            |
+| -------- | ----------- | - | ---------- |
+| &&       | Logical AND |   |            |
+|          |             |   | Logical OR |
+| !        | Logical NOT |   |            |
+
+---
+
+## Example
+
+### Problem:
+
+Check if a student passed both subjects.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    math := true
+    science := true
+
+    fmt.Println(math && science)
+}
+```
+
+### Output
+
+```text
+true
+```
+
+---
+
+# 5. Increment and Decrement Operators
+
+```go
+x++
+x--
+```
+
+## Example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    x := 10
+
+    x++
+
+    fmt.Println(x)
+}
+```
+
+### Output
+
+```text
+11
+```
+
+---
+
+# 📝 Real-Life Operator Problems
+
+## Problem 1: Employee Salary
+
+```go
+basicSalary := 30000
+bonus := 5000
+
+fmt.Println(basicSalary + bonus)
+```
+
+---
+
+## Problem 2: Student Percentage
+
+```go
+marks := 450
+totalMarks := 500
+
+percentage := marks * 100 / totalMarks
+```
+
+---
+
+## Problem 3: Even or Odd
+
+```go
+number := 15
+
+fmt.Println(number % 2 == 0)
+```
+
+Output:
+
+```text
+false
+```
+
+---
+
+## Problem 4: Voting Eligibility
+
+```go
+age := 20
+
+fmt.Println(age >= 18)
+```
+
+Output:
+
+```text
+true
+```
+
+---
+
+# 📊 Operator Summary
+
+| Category   | Operators        |
+| ---------- | ---------------- |
+| Arithmetic | + - * / %        |
+| Assignment | = += -= *= /= %= |
+| Comparison | == != > < >= <=  |
+| Logical    | && || !          |
+| Increment  | ++               |
+| Decrement  | --               |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a constant?
+
+A constant is a fixed value that cannot be changed during program execution.
+
+---
+
+### Q2. Which keyword is used to declare constants?
+
+```go
+const
+```
+
+---
+
+### Q3. What are arithmetic operators?
+
+Operators used to perform mathematical calculations.
+
+Examples:
+
+```text
++  -  *  /  %
+```
+
+---
+
+### Q4. Which operator checks equality?
+
+```text
+==
+```
+
+---
+
+### Q5. Which operator is used for Logical AND?
+
+```text
+&&
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+Constants
+    │
+    └── const
+
+Operators
+    │
+    ├── Arithmetic
+    ├── Assignment
+    ├── Comparison
+    ├── Logical
+    ├── Increment
+    └── Decrement
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Constants store fixed values, while operators are symbols used to perform operations on variables and data.**
+
+---
+
+⭐ **Next Topic:** Input and Output in GoConstants and Operators in Go
