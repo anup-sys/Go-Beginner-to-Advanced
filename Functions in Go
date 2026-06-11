@@ -1,0 +1,403 @@
+# 🚀 Functions in Go
+
+## 📖 What is a Function?
+
+A **function** is a block of code that performs a specific task.
+
+Functions help in:
+
+* Code Reusability
+* Better Program Organization
+* Easy Maintenance
+* Reducing Code Duplication
+
+---
+
+# 🔹 Syntax of a Function
+
+```go
+func functionName() {
+    // code
+}
+```
+
+---
+
+# 🔹 Simple Function
+
+### Problem:
+
+Create a function to display a welcome message.
+
+```go
+package main
+
+import "fmt"
+
+func welcome() {
+    fmt.Println("Welcome to Golang!")
+}
+
+func main() {
+    welcome()
+}
+```
+
+### Output
+
+```text
+Welcome to Golang!
+```
+
+---
+
+# 🔹 Function with Parameters
+
+Parameters allow us to pass values to a function.
+
+### Problem:
+
+Add two numbers using a function.
+
+```go
+package main
+
+import "fmt"
+
+func add(a int, b int) {
+    fmt.Println("Sum =", a+b)
+}
+
+func main() {
+    add(10, 20)
+}
+```
+
+### Output
+
+```text
+Sum = 30
+```
+
+---
+
+# 🔹 Function with Return Value
+
+A function can return a value.
+
+### Problem:
+
+Find the square of a number.
+
+```go
+package main
+
+import "fmt"
+
+func square(num int) int {
+    return num * num
+}
+
+func main() {
+    result := square(5)
+
+    fmt.Println("Square =", result)
+}
+```
+
+### Output
+
+```text
+Square = 25
+```
+
+---
+
+# 🔹 Function with Multiple Return Values
+
+Go allows functions to return multiple values.
+
+### Problem:
+
+Find sum and subtraction.
+
+```go
+package main
+
+import "fmt"
+
+func calculate(a, b int) (int, int) {
+    return a + b, a - b
+}
+
+func main() {
+    sum, difference := calculate(20, 10)
+
+    fmt.Println("Sum =", sum)
+    fmt.Println("Difference =", difference)
+}
+```
+
+### Output
+
+```text
+Sum = 30
+Difference = 10
+```
+
+---
+
+# 🔹 Anonymous Function
+
+A function without a name.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    func() {
+        fmt.Println("Anonymous Function")
+    }()
+}
+```
+
+### Output
+
+```text
+Anonymous Function
+```
+
+---
+
+# 🔹 Recursive Function
+
+A function that calls itself.
+
+### Problem:
+
+Find factorial of a number.
+
+```go
+package main
+
+import "fmt"
+
+func factorial(n int) int {
+    if n == 1 {
+        return 1
+    }
+
+    return n * factorial(n-1)
+}
+
+func main() {
+    fmt.Println(factorial(5))
+}
+```
+
+### Output
+
+```text
+120
+```
+
+---
+
+# 📝 Real-Life Problems
+
+## Problem 1: Calculate Student Total Marks
+
+```go
+package main
+
+import "fmt"
+
+func totalMarks(math, science, english int) int {
+    return math + science + english
+}
+
+func main() {
+    total := totalMarks(80, 75, 90)
+
+    fmt.Println("Total Marks =", total)
+}
+```
+
+---
+
+## Problem 2: Check Voting Eligibility
+
+```go
+package main
+
+import "fmt"
+
+func canVote(age int) bool {
+    return age >= 18
+}
+
+func main() {
+    fmt.Println(canVote(20))
+}
+```
+
+### Output
+
+```text
+true
+```
+
+---
+
+## Problem 3: Calculate Area of Rectangle
+
+```go
+package main
+
+import "fmt"
+
+func area(length, width int) int {
+    return length * width
+}
+
+func main() {
+    fmt.Println("Area =", area(10, 5))
+}
+```
+
+---
+
+## Problem 4: Find Largest Number
+
+```go
+package main
+
+import "fmt"
+
+func largest(a, b int) int {
+    if a > b {
+        return a
+    }
+    return b
+}
+
+func main() {
+    fmt.Println("Largest =", largest(15, 20))
+}
+```
+
+---
+
+## Problem 5: Check Even or Odd
+
+```go
+package main
+
+import "fmt"
+
+func isEven(num int) bool {
+    return num%2 == 0
+}
+
+func main() {
+    fmt.Println(isEven(8))
+}
+```
+
+### Output
+
+```text
+true
+```
+
+---
+
+# 📊 Types of Functions in Go
+
+| Function Type              | Description                    |
+| -------------------------- | ------------------------------ |
+| Simple Function            | No parameters, no return value |
+| Function with Parameters   | Accepts input values           |
+| Function with Return Value | Returns a value                |
+| Multiple Return Function   | Returns multiple values        |
+| Anonymous Function         | Function without a name        |
+| Recursive Function         | Calls itself                   |
+
+---
+
+# 🎯 Advantages of Functions
+
+* Code Reusability
+* Easy Debugging
+* Better Readability
+* Modular Programming
+* Reduces Repetition
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a function?
+
+A function is a block of code that performs a specific task.
+
+---
+
+### Q2. Which keyword is used to define a function?
+
+```go
+func
+```
+
+---
+
+### Q3. Can a Go function return multiple values?
+
+Yes.
+
+Example:
+
+```go
+func demo() (int, int) {
+    return 10, 20
+}
+```
+
+---
+
+### Q4. What is a recursive function?
+
+A function that calls itself.
+
+---
+
+### Q5. What is an anonymous function?
+
+A function without a name.
+
+---
+
+# 📝 Quick Revision
+
+```text
+Functions
+    │
+    ├── Simple Function
+    ├── Parameters
+    ├── Return Value
+    ├── Multiple Return
+    ├── Anonymous Function
+    └── Recursive Function
+```
+
+---
+
+# 💡 One-Line Definition
+
+**A function is a reusable block of code that performs a specific task and helps make programs modular and organized.**
+
+---
+
+⭐ **Next Topic:** Arrays and Slices in Go
