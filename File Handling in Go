@@ -1,0 +1,415 @@
+# 🚀 File Handling in Go
+
+## 📖 What is File Handling?
+
+**File Handling** is the process of creating, reading, writing, updating, and deleting files.
+
+Go provides the **os** and **io/ioutil** (or **os** and **bufio** in modern Go) packages for file operations.
+
+---
+
+# 📦 Packages Used
+
+```go
+import (
+    "os"
+    "fmt"
+)
+```
+
+---
+
+# 🔹 Why File Handling?
+
+* Store data permanently
+* Read saved information
+* Generate reports
+* Save user records
+* Manage logs
+
+---
+
+# 🔹 Create a File
+
+### Problem:
+
+Create a file named `student.txt`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+
+    file, err := os.Create("student.txt")
+
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    defer file.Close()
+
+    fmt.Println("File Created Successfully")
+}
+```
+
+### Output
+
+```text
+File Created Successfully
+```
+
+---
+
+# 🔹 Write Data to a File
+
+### Problem:
+
+Store student information in a file.
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+
+    file, err := os.Create("student.txt")
+
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    defer file.Close()
+
+    file.WriteString("Name: Anup\n")
+    file.WriteString("Age: 21\n")
+
+    fmt.Println("Data Written Successfully")
+}
+```
+
+---
+
+# 🔹 Read Data from a File
+
+### Problem:
+
+Read data from `student.txt`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+
+    data, err := os.ReadFile("student.txt")
+
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    fmt.Println(string(data))
+}
+```
+
+### Output
+
+```text
+Name: Anup
+Age: 21
+```
+
+---
+
+# 🔹 Append Data to a File
+
+### Problem:
+
+Add more information to an existing file.
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+
+    file, err := os.OpenFile(
+        "student.txt",
+        os.O_APPEND|os.O_WRONLY,
+        0644,
+    )
+
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    defer file.Close()
+
+    file.WriteString("Course: Golang\n")
+
+    fmt.Println("Data Appended Successfully")
+}
+```
+
+---
+
+# 🔹 Delete a File
+
+### Problem:
+
+Delete `student.txt`.
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+
+    err := os.Remove("student.txt")
+
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+
+    fmt.Println("File Deleted Successfully")
+}
+```
+
+---
+
+# 🔹 Check if File Exists
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func main() {
+
+    _, err := os.Stat("student.txt")
+
+    if err == nil {
+        fmt.Println("File Exists")
+    } else {
+        fmt.Println("File Does Not Exist")
+    }
+}
+```
+
+---
+
+# 📝 Real-Life Problems
+
+## Problem 1: Save Employee Details
+
+```go
+package main
+
+import (
+    "os"
+)
+
+func main() {
+
+    file, _ := os.Create("employee.txt")
+
+    defer file.Close()
+
+    file.WriteString("ID: 101\n")
+    file.WriteString("Name: Rahul\n")
+    file.WriteString("Salary: 50000\n")
+}
+```
+
+---
+
+## Problem 2: Store Student Marks
+
+```go
+package main
+
+import (
+    "os"
+)
+
+func main() {
+
+    file, _ := os.Create("marks.txt")
+
+    defer file.Close()
+
+    file.WriteString("Math: 90\n")
+    file.WriteString("Science: 85\n")
+}
+```
+
+---
+
+## Problem 3: Create a Log File
+
+```go
+package main
+
+import (
+    "os"
+)
+
+func main() {
+
+    file, _ := os.Create("log.txt")
+
+    defer file.Close()
+
+    file.WriteString("Application Started\n")
+}
+```
+
+---
+
+# 🔹 File Modes
+
+| Mode        | Description    |
+| ----------- | -------------- |
+| os.O_RDONLY | Read Only      |
+| os.O_WRONLY | Write Only     |
+| os.O_RDWR   | Read and Write |
+| os.O_APPEND | Append Data    |
+| os.O_CREATE | Create File    |
+
+---
+
+# 🔹 defer file.Close()
+
+Always close the file after use.
+
+```go
+defer file.Close()
+```
+
+This prevents memory leaks.
+
+---
+
+# 📊 File Handling Operations
+
+```text
+Create File
+      ↓
+Write Data
+      ↓
+Read Data
+      ↓
+Append Data
+      ↓
+Close File
+      ↓
+Delete File
+```
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is File Handling?
+
+File handling is the process of creating, reading, writing, updating, and deleting files.
+
+---
+
+### Q2. Which package is mainly used for file handling?
+
+```go
+os
+```
+
+---
+
+### Q3. Which function creates a file?
+
+```go
+os.Create()
+```
+
+---
+
+### Q4. Which function reads a file?
+
+```go
+os.ReadFile()
+```
+
+---
+
+### Q5. Which function deletes a file?
+
+```go
+os.Remove()
+```
+
+---
+
+### Q6. Why is `defer file.Close()` used?
+
+It automatically closes the file after the function finishes execution.
+
+---
+
+### Q7. Which function checks whether a file exists?
+
+```go
+os.Stat()
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+File Handling
+      │
+      ├── os.Create()
+      ├── os.ReadFile()
+      ├── file.WriteString()
+      ├── os.OpenFile()
+      ├── os.Remove()
+      ├── os.Stat()
+      └── defer file.Close()
+```
+
+---
+
+# 💡 One-Line Definition
+
+**File Handling in Go is the process of creating, reading, writing, appending, and deleting files using the `os` package.**
+
+---
+
+⭐ **Next Topic:** Goroutines and Concurrency in Go
