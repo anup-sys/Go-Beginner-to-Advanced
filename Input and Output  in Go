@@ -1,0 +1,386 @@
+# 🚀 Input and Output (I/O) in Go
+
+## 📖 What is Input and Output?
+
+**Input** is the process of taking data from the user.
+
+**Output** is the process of displaying data to the user.
+
+Go uses the **fmt** package for input and output operations.
+
+---
+
+# 📦 Import fmt Package
+
+```go
+import "fmt"
+```
+
+The `fmt` package provides functions like:
+
+* `fmt.Print()`
+* `fmt.Println()`
+* `fmt.Printf()`
+* `fmt.Scan()`
+* `fmt.Scanln()`
+
+---
+
+# 🖥️ Output Functions
+
+## 1. fmt.Print()
+
+Prints output without a new line.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Print("Hello ")
+    fmt.Print("Golang")
+}
+```
+
+### Output
+
+```text
+Hello Golang
+```
+
+---
+
+## 2. fmt.Println()
+
+Prints output with a new line.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Welcome")
+    fmt.Println("To Golang")
+}
+```
+
+### Output
+
+```text
+Welcome
+To Golang
+```
+
+---
+
+## 3. fmt.Printf()
+
+Prints formatted output.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    name := "Anup"
+    age := 21
+
+    fmt.Printf("Name: %s\n", name)
+    fmt.Printf("Age: %d\n", age)
+}
+```
+
+### Output
+
+```text
+Name: Anup
+Age: 21
+```
+
+---
+
+# ⌨️ Input Functions
+
+## 1. fmt.Scan()
+
+Takes input from the user.
+
+### Problem:
+
+Take the student's name as input and display it.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var name string
+
+    fmt.Print("Enter Name: ")
+    fmt.Scan(&name)
+
+    fmt.Println("Student Name:", name)
+}
+```
+
+### Output
+
+```text
+Enter Name: Rahul
+Student Name: Rahul
+```
+
+---
+
+## 2. fmt.Scanln()
+
+Reads input until a new line.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var city string
+
+    fmt.Print("Enter City: ")
+    fmt.Scanln(&city)
+
+    fmt.Println("City:", city)
+}
+```
+
+---
+
+# 📝 Real-Life Problems
+
+## Problem 1: Add Two Numbers
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var a, b int
+
+    fmt.Print("Enter First Number: ")
+    fmt.Scan(&a)
+
+    fmt.Print("Enter Second Number: ")
+    fmt.Scan(&b)
+
+    fmt.Println("Sum =", a+b)
+}
+```
+
+### Output
+
+```text
+Enter First Number: 10
+Enter Second Number: 20
+Sum = 30
+```
+
+---
+
+## Problem 2: Calculate Student Total Marks
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var math, science int
+
+    fmt.Print("Enter Math Marks: ")
+    fmt.Scan(&math)
+
+    fmt.Print("Enter Science Marks: ")
+    fmt.Scan(&science)
+
+    fmt.Println("Total Marks =", math+science)
+}
+```
+
+---
+
+## Problem 3: Find Area of Rectangle
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var length, width int
+
+    fmt.Print("Enter Length: ")
+    fmt.Scan(&length)
+
+    fmt.Print("Enter Width: ")
+    fmt.Scan(&width)
+
+    area := length * width
+
+    fmt.Println("Area =", area)
+}
+```
+
+---
+
+## Problem 4: Check Voting Eligibility
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var age int
+
+    fmt.Print("Enter Age: ")
+    fmt.Scan(&age)
+
+    if age >= 18 {
+        fmt.Println("Eligible for Voting")
+    } else {
+        fmt.Println("Not Eligible for Voting")
+    }
+}
+```
+
+---
+
+## Problem 5: Calculate Simple Interest
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var p, r, t int
+
+    fmt.Print("Enter Principal: ")
+    fmt.Scan(&p)
+
+    fmt.Print("Enter Rate: ")
+    fmt.Scan(&r)
+
+    fmt.Print("Enter Time: ")
+    fmt.Scan(&t)
+
+    si := (p * r * t) / 100
+
+    fmt.Println("Simple Interest =", si)
+}
+```
+
+---
+
+# 📊 Format Specifiers
+
+| Specifier | Meaning   |
+| --------- | --------- |
+| %d        | Integer   |
+| %f        | Float     |
+| %s        | String    |
+| %t        | Boolean   |
+| %c        | Character |
+
+---
+
+## Example
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    name := "Anup"
+    age := 21
+    percentage := 89.5
+
+    fmt.Printf("Name: %s\n", name)
+    fmt.Printf("Age: %d\n", age)
+    fmt.Printf("Percentage: %.2f\n", percentage)
+}
+```
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. Which package is used for input and output in Go?
+
+```go
+fmt
+```
+
+---
+
+### Q2. Which function is used to take input?
+
+```go
+fmt.Scan()
+```
+
+---
+
+### Q3. Which function prints output with a new line?
+
+```go
+fmt.Println()
+```
+
+---
+
+### Q4. Which function is used for formatted output?
+
+```go
+fmt.Printf()
+```
+
+---
+
+### Q5. Why do we use `&` in fmt.Scan()?
+
+Because `&` passes the memory address of the variable so that Go can store the input value.
+
+Example:
+
+```go
+fmt.Scan(&name)
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+Input & Output
+       │
+       ├── fmt.Print()
+       ├── fmt.Println()
+       ├── fmt.Printf()
+       ├── fmt.Scan()
+       └── fmt.Scanln()
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Input is the process of receiving data from the user, and Output is the process of displaying data to the user. Go uses the `fmt` package for performing input and output operations.**
+
+---
+
+⭐ **Next Topic:** Conditional Statements (if, if-else, switch) in Go
