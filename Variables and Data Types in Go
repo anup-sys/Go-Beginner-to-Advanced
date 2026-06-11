@@ -1,0 +1,436 @@
+# 🚀 Variables and Data Types in Go
+
+## 📖 What is a Variable?
+
+A **variable** is a named storage location used to hold data that can be changed during program execution.
+
+Example:
+
+* Student Name
+* Age
+* Salary
+* Marks
+
+---
+
+# 🛠 Variable Declaration
+
+## Method 1: Using `var`
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var name string = "Anup"
+
+    fmt.Println(name)
+}
+```
+
+### Output
+
+```text
+Anup
+```
+
+---
+
+## Method 2: Type Inference
+
+Go automatically detects the data type.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var age = 21
+
+    fmt.Println(age)
+}
+```
+
+---
+
+## Method 3: Short Variable Declaration
+
+Use `:=`
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    city := "Bangalore"
+
+    fmt.Println(city)
+}
+```
+
+---
+
+# 📚 Rules for Naming Variables
+
+✅ Can contain letters, digits, and underscore.
+
+✅ Must begin with a letter or underscore.
+
+❌ Cannot start with a number.
+
+❌ Cannot use Go keywords.
+
+### Valid
+
+```text
+name
+studentAge
+total_marks
+_city
+```
+
+### Invalid
+
+```text
+123name
+for
+int
+```
+
+---
+
+# 📖 What are Data Types?
+
+A **data type** defines the kind of value a variable can store.
+
+Example:
+
+* Integer → 10
+* Decimal → 10.5
+* Text → "Hello"
+* Boolean → true
+
+---
+
+# 🔢 Numeric Data Types
+
+## Integer
+
+Stores whole numbers.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var marks int = 95
+
+    fmt.Println(marks)
+}
+```
+
+### Output
+
+```text
+95
+```
+
+---
+
+## Real-Life Problem
+
+### 📝 Problem:
+
+Calculate the total number of students.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    boys := 25
+    girls := 20
+
+    total := boys + girls
+
+    fmt.Println("Total Students:", total)
+}
+```
+
+### Output
+
+```text
+Total Students: 45
+```
+
+---
+
+## Float
+
+Stores decimal values.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var price float64 = 199.99
+
+    fmt.Println(price)
+}
+```
+
+---
+
+## Real-Life Problem
+
+### 📝 Problem:
+
+Find the area of a circle.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    radius := 7.0
+    area := 3.14 * radius * radius
+
+    fmt.Println("Area:", area)
+}
+```
+
+---
+
+# 🔤 String Data Type
+
+Stores text.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var name string = "Anup"
+
+    fmt.Println(name)
+}
+```
+
+---
+
+## Real-Life Problem
+
+### 📝 Problem:
+
+Store a student's name.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    studentName := "Rahul"
+
+    fmt.Println("Student Name:", studentName)
+}
+```
+
+---
+
+# ✅ Boolean Data Type
+
+Stores only two values:
+
+* true
+* false
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var isLoggedIn bool = true
+
+    fmt.Println(isLoggedIn)
+}
+```
+
+---
+
+## Real-Life Problem
+
+### 📝 Problem:
+
+Check whether a student is registered.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    isRegistered := true
+
+    if isRegistered {
+        fmt.Println("Eligible for Exam")
+    } else {
+        fmt.Println("Not Eligible")
+    }
+}
+```
+
+---
+
+# 📊 Basic Data Types
+
+| Data Type | Description           | Example |
+| --------- | --------------------- | ------- |
+| int       | Whole numbers         | 10      |
+| float32   | Decimal numbers       | 10.5    |
+| float64   | Large decimal numbers | 99.99   |
+| string    | Text                  | "Hello" |
+| bool      | True or False         | true    |
+
+---
+
+# 📦 Zero Values
+
+If a variable is not initialized, Go assigns a default value.
+
+| Data Type | Default Value |
+| --------- | ------------- |
+| int       | 0             |
+| float64   | 0.0           |
+| string    | ""            |
+| bool      | false         |
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var a int
+    var b float64
+    var c string
+    var d bool
+
+    fmt.Println(a)
+    fmt.Println(b)
+    fmt.Println(c)
+    fmt.Println(d)
+}
+```
+
+---
+
+# 🔄 Type Conversion
+
+Go does not support automatic type conversion.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    var a int = 10
+    var b float64 = float64(a)
+
+    fmt.Println(b)
+}
+```
+
+---
+
+# 🚀 Variable Declaration Summary
+
+```go
+var name string = "Anup"
+
+var age = 21
+
+city := "Bangalore"
+```
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a variable?
+
+A variable is a named memory location used to store data.
+
+---
+
+### Q2. What are the basic data types in Go?
+
+* int
+* float32
+* float64
+* string
+* bool
+
+---
+
+### Q3. What is the short variable declaration operator?
+
+```go
+:=
+```
+
+---
+
+### Q4. What is the default value of a bool variable?
+
+```text
+false
+```
+
+---
+
+### Q5. Can Go automatically convert int to float?
+
+No, explicit type conversion is required.
+
+---
+
+# 📝 Quick Revision
+
+```text
+Variables
+    │
+    ├── var keyword
+    ├── Type Inference
+    └── := Operator
+
+Data Types
+    │
+    ├── int
+    ├── float
+    ├── string
+    └── bool
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Variables are used to store data, and data types define the kind of data that a variable can hold.**
+
+---
+
+⭐ **Next Topic:** Constants and Operators in Go
