@@ -1,0 +1,440 @@
+# 🚀 Loops in Go (for Loop, Nested Loop, Break, Continue)
+
+## 📖 What is a Loop?
+
+A **loop** is used to execute a block of code repeatedly until a specified condition becomes false.
+
+Unlike many programming languages, **Go has only one loop statement: `for`**.
+
+---
+
+# 🔹 for Loop
+
+The `for` loop is used when the number of iterations is known.
+
+## Syntax
+
+```go
+for initialization; condition; increment/decrement {
+    // code
+}
+```
+
+---
+
+## Example
+
+### Problem:
+
+Print numbers from 1 to 5.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 5; i++ {
+        fmt.Println(i)
+    }
+}
+```
+
+### Output
+
+```text
+1
+2
+3
+4
+5
+```
+
+---
+
+# 🔹 While Style Loop
+
+Go does not have a `while` loop, but a `for` loop can work like one.
+
+### Example
+
+### Problem:
+
+Print numbers from 1 to 5.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    i := 1
+
+    for i <= 5 {
+        fmt.Println(i)
+        i++
+    }
+}
+```
+
+---
+
+# 🔹 Infinite Loop
+
+A loop that runs forever.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for {
+        fmt.Println("Hello Go")
+    }
+}
+```
+
+Use `break` to stop it.
+
+---
+
+# 🔹 Nested Loop
+
+A loop inside another loop.
+
+### Problem:
+
+Print a square pattern.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 3; i++ {
+        for j := 1; j <= 3; j++ {
+            fmt.Print("* ")
+        }
+        fmt.Println()
+    }
+}
+```
+
+### Output
+
+```text
+* * *
+* * *
+* * *
+```
+
+---
+
+# 🔹 Break Statement
+
+The `break` statement immediately terminates the loop.
+
+### Problem:
+
+Stop printing after 5.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 10; i++ {
+
+        if i == 6 {
+            break
+        }
+
+        fmt.Println(i)
+    }
+}
+```
+
+### Output
+
+```text
+1
+2
+3
+4
+5
+```
+
+---
+
+# 🔹 Continue Statement
+
+The `continue` statement skips the current iteration and moves to the next iteration.
+
+### Problem:
+
+Skip number 5.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 10; i++ {
+
+        if i == 5 {
+            continue
+        }
+
+        fmt.Println(i)
+    }
+}
+```
+
+### Output
+
+```text
+1
+2
+3
+4
+6
+7
+8
+9
+10
+```
+
+---
+
+# 📝 Real-Life Problems
+
+## Problem 1: Print Table of 5
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 10; i++ {
+        fmt.Println("5 x", i, "=", 5*i)
+    }
+}
+```
+
+---
+
+## Problem 2: Calculate Sum of First 10 Numbers
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    sum := 0
+
+    for i := 1; i <= 10; i++ {
+        sum += i
+    }
+
+    fmt.Println("Sum =", sum)
+}
+```
+
+### Output
+
+```text
+Sum = 55
+```
+
+---
+
+## Problem 3: Count Even Numbers
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 10; i++ {
+        if i%2 == 0 {
+            fmt.Println(i)
+        }
+    }
+}
+```
+
+---
+
+## Problem 4: Factorial of a Number
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    number := 5
+    factorial := 1
+
+    for i := 1; i <= number; i++ {
+        factorial *= i
+    }
+
+    fmt.Println("Factorial =", factorial)
+}
+```
+
+### Output
+
+```text
+Factorial = 120
+```
+
+---
+
+## Problem 5: Reverse Counting
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 10; i >= 1; i-- {
+        fmt.Println(i)
+    }
+}
+```
+
+---
+
+# ⭐ Pattern Programs
+
+## Pattern 1
+
+```text
+*
+**
+***
+****
+*****
+```
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 5; i++ {
+        for j := 1; j <= i; j++ {
+            fmt.Print("*")
+        }
+        fmt.Println()
+    }
+}
+```
+
+---
+
+## Pattern 2
+
+```text
+1
+12
+123
+1234
+12345
+```
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    for i := 1; i <= 5; i++ {
+        for j := 1; j <= i; j++ {
+            fmt.Print(j)
+        }
+        fmt.Println()
+    }
+}
+```
+
+---
+
+# 📊 Types of Loops in Go
+
+| Loop Type     | Purpose              |
+| ------------- | -------------------- |
+| for           | Basic Loop           |
+| While Style   | Condition-based Loop |
+| Infinite Loop | Runs forever         |
+| Nested Loop   | Loop inside Loop     |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. Which loop is available in Go?
+
+```text
+for
+```
+
+---
+
+### Q2. Does Go have a while loop?
+
+No. The `for` loop can be used as a while loop.
+
+---
+
+### Q3. What does the break statement do?
+
+It immediately terminates the loop.
+
+---
+
+### Q4. What does the continue statement do?
+
+It skips the current iteration and continues with the next one.
+
+---
+
+### Q5. What is a nested loop?
+
+A loop inside another loop.
+
+---
+
+# 📝 Quick Revision
+
+```text
+Loops
+  │
+  ├── for Loop
+  ├── While Style Loop
+  ├── Infinite Loop
+  ├── Nested Loop
+  ├── Break
+  └── Continue
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Loops are used to execute a block of code repeatedly until a specified condition becomes false. In Go, the `for` loop is the only looping statement.**
+
+---
+
+⭐ **Next Topic:** Functions in Go
