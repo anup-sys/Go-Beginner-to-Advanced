@@ -1,0 +1,353 @@
+# 🚀 Installation and Setup of Go
+
+## 📖 Introduction
+
+Before writing Go programs, you need to install the Go compiler and set up the development environment.
+
+---
+
+# 🛠 System Requirements
+
+Go supports the following operating systems:
+
+* ✅ Windows
+* ✅ Linux
+* ✅ macOS
+
+Minimum Requirements:
+
+* 2 GB RAM
+* 500 MB Free Disk Space
+
+---
+
+# 🌐 Step 1: Download Go
+
+Visit the official Go website:
+
+**https://go.dev/dl/**
+
+Download the installer according to your operating system.
+
+Examples:
+
+* Windows: `.msi`
+* Linux: `.tar.gz`
+* macOS: `.pkg`
+
+---
+
+# 💻 Step 2: Install Go
+
+## Windows
+
+1. Download the `.msi` installer.
+2. Double-click the installer.
+3. Click **Next**.
+4. Accept the license agreement.
+5. Choose the installation location.
+6. Click **Install**.
+7. Click **Finish**.
+
+---
+
+## Linux
+
+Extract the archive:
+
+```bash
+sudo tar -C /usr/local -xzf go1.xx.x.linux-amd64.tar.gz
+```
+
+Add Go to the PATH:
+
+```bash
+export PATH=$PATH:/usr/local/go/bin
+```
+
+Save the file and reload:
+
+```bash
+source ~/.profile
+```
+
+---
+
+## macOS
+
+1. Download the `.pkg` installer.
+2. Open the installer.
+3. Follow the installation wizard.
+4. Complete the installation.
+
+---
+
+# 🔍 Step 3: Verify Installation
+
+Open Terminal or Command Prompt and run:
+
+```bash
+go version
+```
+
+Example Output:
+
+```text
+go version go1.24.0 windows/amd64
+```
+
+If the version appears, Go is installed successfully.
+
+---
+
+# ⚙️ Step 4: Check Go Environment
+
+Run:
+
+```bash
+go env
+```
+
+This command displays all Go environment variables.
+
+---
+
+# 📂 Step 5: Create Your First Go Project
+
+Create a folder:
+
+```text
+GoProject
+```
+
+Create a file:
+
+```text
+main.go
+```
+
+---
+
+# ✍️ Step 6: Write Your First Program
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, Golang!")
+}
+```
+
+---
+
+# ▶️ Step 7: Run the Program
+
+Open terminal and execute:
+
+```bash
+go run main.go
+```
+
+### Output
+
+```text
+Hello, Golang!
+```
+
+---
+
+# 🔨 Step 8: Build Executable File
+
+Compile the program:
+
+```bash
+go build main.go
+```
+
+An executable file will be created.
+
+Windows:
+
+```text
+main.exe
+```
+
+Linux/macOS:
+
+```text
+main
+```
+
+Run the executable directly.
+
+---
+
+# 📁 Go Workspace Structure
+
+```text
+GoProject/
+│
+├── main.go
+├── go.mod
+└── go.sum
+```
+
+---
+
+# 📦 Step 9: Initialize Go Module
+
+Create a module:
+
+```bash
+go mod init myproject
+```
+
+Example Output:
+
+```text
+go: creating new go.mod: module myproject
+```
+
+---
+
+# 📥 Step 10: Install External Packages
+
+Example:
+
+```bash
+go get github.com/gin-gonic/gin
+```
+
+This downloads and installs the package.
+
+---
+
+# 🛠 Popular Go IDEs
+
+* Visual Studio Code
+* GoLand
+* Sublime Text
+* Vim
+* Atom
+
+---
+
+# 📌 Install Go Extension in VS Code
+
+1. Open VS Code
+2. Go to Extensions
+3. Search for **Go**
+4. Install the Go extension
+5. Restart VS Code
+
+---
+
+# 🚀 Go Development Workflow
+
+```text
+Install Go
+      ↓
+Verify Installation
+      ↓
+Create Project Folder
+      ↓
+Initialize Module
+      ↓
+Write Code
+      ↓
+Run Program
+      ↓
+Build Executable
+```
+
+---
+
+# ✅ Advantages of Using Go Modules
+
+* Dependency Management
+* Version Control
+* Easy Package Installation
+* Project Isolation
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. How do you check the installed Go version?
+
+```bash
+go version
+```
+
+---
+
+### Q2. Which command initializes a Go module?
+
+```bash
+go mod init projectname
+```
+
+---
+
+### Q3. Which command runs a Go program?
+
+```bash
+go run main.go
+```
+
+---
+
+### Q4. Which command builds an executable?
+
+```bash
+go build main.go
+```
+
+---
+
+### Q5. Which command installs a package?
+
+```bash
+go get package-name
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+Download Go
+      ↓
+Install Go
+      ↓
+Check Version
+      ↓
+Create Project
+      ↓
+go mod init
+      ↓
+Write Program
+      ↓
+go run
+      ↓
+go build
+```
+
+---
+
+# 💡 Key Commands
+
+```bash
+go version
+go env
+go mod init projectname
+go run main.go
+go build main.go
+go get package-name
+```
+
+---
+
+⭐ **Next Topic:** Variables and Data Types in Go
