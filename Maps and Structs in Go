@@ -1,0 +1,465 @@
+# 🚀 Maps and Structs in Go
+
+## 📖 What is a Map?
+
+A **Map** is a collection of **key-value pairs**.
+
+* Stores data in key-value format.
+* Keys are unique.
+* Fast data lookup.
+* Dynamic in size.
+
+---
+
+# 🔹 Map Declaration
+
+## Syntax
+
+```go
+var mapName map[keyType]valueType
+```
+
+---
+
+## Example
+
+### Problem:
+
+Store student marks using a map.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    student := map[string]int{
+        "Anup": 95,
+        "Rahul": 88,
+        "Amit": 92,
+    }
+
+    fmt.Println(student)
+}
+```
+
+### Output
+
+```text
+map[Amit:92 Anup:95 Rahul:88]
+```
+
+---
+
+# 🔹 Access Map Elements
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    student := map[string]int{
+        "Anup": 95,
+        "Rahul": 88,
+    }
+
+    fmt.Println(student["Anup"])
+}
+```
+
+### Output
+
+```text
+95
+```
+
+---
+
+# 🔹 Add New Element
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    student := map[string]int{}
+
+    student["Anup"] = 95
+    student["Rahul"] = 90
+
+    fmt.Println(student)
+}
+```
+
+---
+
+# 🔹 Delete Element
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    student := map[string]int{
+        "Anup": 95,
+        "Rahul": 88,
+    }
+
+    delete(student, "Rahul")
+
+    fmt.Println(student)
+}
+```
+
+---
+
+# 🔹 Check Key Exists
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    student := map[string]int{
+        "Anup": 95,
+    }
+
+    marks, found := student["Anup"]
+
+    fmt.Println(marks)
+    fmt.Println(found)
+}
+```
+
+### Output
+
+```text
+95
+true
+```
+
+---
+
+# 📝 Real-Life Map Problems
+
+## Problem 1: Employee Salary
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    employee := map[string]int{
+        "Ravi": 30000,
+        "Amit": 35000,
+    }
+
+    fmt.Println(employee)
+}
+```
+
+---
+
+## Problem 2: Product Price List
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    products := map[string]int{
+        "Laptop": 50000,
+        "Mobile": 20000,
+    }
+
+    fmt.Println(products)
+}
+```
+
+---
+
+## Problem 3: Country and Capital
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    capital := map[string]string{
+        "India": "New Delhi",
+        "Japan": "Tokyo",
+    }
+
+    fmt.Println(capital["India"])
+}
+```
+
+---
+
+# 🚀 What is a Struct?
+
+A **Struct** is a user-defined data type that groups different types of data into a single unit.
+
+---
+
+# 🔹 Struct Declaration
+
+## Syntax
+
+```go
+type StructName struct {
+    field1 datatype
+    field2 datatype
+}
+```
+
+---
+
+## Example
+
+### Problem:
+
+Store student details.
+
+```go
+package main
+
+import "fmt"
+
+type Student struct {
+    Name string
+    Age  int
+    Marks int
+}
+
+func main() {
+    s := Student{
+        Name: "Anup",
+        Age: 21,
+        Marks: 95,
+    }
+
+    fmt.Println(s)
+}
+```
+
+### Output
+
+```text
+{Anup 21 95}
+```
+
+---
+
+# 🔹 Access Struct Fields
+
+```go
+package main
+
+import "fmt"
+
+type Student struct {
+    Name string
+    Age int
+}
+
+func main() {
+    s := Student{"Rahul", 20}
+
+    fmt.Println(s.Name)
+    fmt.Println(s.Age)
+}
+```
+
+---
+
+# 🔹 Modify Struct Fields
+
+```go
+package main
+
+import "fmt"
+
+type Employee struct {
+    Name string
+    Salary int
+}
+
+func main() {
+    emp := Employee{"Amit", 30000}
+
+    emp.Salary = 35000
+
+    fmt.Println(emp)
+}
+```
+
+---
+
+# 📝 Real-Life Struct Problems
+
+## Problem 1: Employee Information
+
+```go
+package main
+
+import "fmt"
+
+type Employee struct {
+    ID int
+    Name string
+    Salary int
+}
+
+func main() {
+    emp := Employee{101, "Rahul", 50000}
+
+    fmt.Println(emp)
+}
+```
+
+---
+
+## Problem 2: Book Details
+
+```go
+package main
+
+import "fmt"
+
+type Book struct {
+    Title string
+    Author string
+    Price int
+}
+
+func main() {
+    b := Book{
+        Title: "Go Programming",
+        Author: "John",
+        Price: 450,
+    }
+
+    fmt.Println(b)
+}
+```
+
+---
+
+## Problem 3: Car Information
+
+```go
+package main
+
+import "fmt"
+
+type Car struct {
+    Brand string
+    Model string
+    Price int
+}
+
+func main() {
+    c := Car{
+        Brand: "Toyota",
+        Model: "Innova",
+        Price: 2500000,
+    }
+
+    fmt.Println(c)
+}
+```
+
+---
+
+# 📊 Difference Between Map and Struct
+
+| Map                       | Struct                  |
+| ------------------------- | ----------------------- |
+| Key-Value Pair            | Collection of Fields    |
+| Dynamic                   | Fixed Structure         |
+| Keys can be added/removed | Fields are predefined   |
+| Used for flexible data    | Used for custom objects |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a Map?
+
+A map is a collection of key-value pairs.
+
+---
+
+### Q2. What is a Struct?
+
+A struct is a user-defined data type that groups multiple fields together.
+
+---
+
+### Q3. Which function is used to remove an element from a map?
+
+```go
+delete()
+```
+
+---
+
+### Q4. How do you access a struct field?
+
+```go
+student.Name
+```
+
+---
+
+### Q5. Can a struct contain different data types?
+
+Yes.
+
+Example:
+
+```go
+type Student struct {
+    Name string
+    Age int
+    Marks float64
+}
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+Maps
+  │
+  ├── Key-Value Pair
+  ├── Dynamic
+  ├── delete()
+  └── Fast Lookup
+
+Structs
+  │
+  ├── User Defined Type
+  ├── Collection of Fields
+  ├── Fixed Structure
+  └── Custom Objects
+```
+
+---
+
+# 💡 One-Line Definition
+
+**A Map stores data as key-value pairs, while a Struct groups different types of related data into a single custom data type.**
+
+---
+
+⭐ **Next Topic:** Pointers and Memory Management in Go
