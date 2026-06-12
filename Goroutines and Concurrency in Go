@@ -1,0 +1,467 @@
+# 🚀 Goroutines and Concurrency in Go
+
+## 📖 What is Concurrency?
+
+**Concurrency** is the ability of a program to execute multiple tasks at the same time.
+
+Go is designed for concurrent programming and provides **Goroutines** and **Channels** to make concurrency simple and efficient.
+
+---
+
+# 🚀 What is a Goroutine?
+
+A **Goroutine** is a lightweight thread managed by the Go runtime.
+
+It allows a function to run independently and concurrently with other functions.
+
+---
+
+# 🔹 Why Use Goroutines?
+
+* Faster Execution
+* Better CPU Utilization
+* Lightweight
+* Efficient Multitasking
+* Easy Concurrent Programming
+
+---
+
+# 🔹 Creating a Goroutine
+
+Use the `go` keyword before a function call.
+
+## Syntax
+
+```go
+go functionName()
+```
+
+---
+
+## Example
+
+### 📝 Problem:
+
+Run a function as a Goroutine.
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func display() {
+    fmt.Println("Hello from Goroutine")
+}
+
+func main() {
+    go display()
+
+    time.Sleep(time.Second)
+}
+```
+
+### Output
+
+```text
+Hello from Goroutine
+```
+
+---
+
+# 🔹 Multiple Goroutines
+
+### 📝 Problem:
+
+Run two tasks simultaneously.
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func first() {
+    fmt.Println("First Task")
+}
+
+func second() {
+    fmt.Println("Second Task")
+}
+
+func main() {
+    go first()
+    go second()
+
+    time.Sleep(time.Second)
+}
+```
+
+---
+
+# 🔹 Anonymous Goroutine
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+
+    go func() {
+        fmt.Println("Anonymous Goroutine")
+    }()
+
+    time.Sleep(time.Second)
+}
+```
+
+---
+
+# 🚀 What is a Channel?
+
+A **Channel** is used for communication between Goroutines.
+
+It allows Goroutines to send and receive data safely.
+
+---
+
+# 🔹 Create a Channel
+
+## Syntax
+
+```go
+channelName := make(chan dataType)
+```
+
+---
+
+## Example
+
+### 📝 Problem:
+
+Send and receive a number using a channel.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    ch := make(chan int)
+
+    go func() {
+        ch <- 100
+    }()
+
+    value := <-ch
+
+    fmt.Println(value)
+}
+```
+
+### Output
+
+```text
+100
+```
+
+---
+
+# 🔹 Send Data to Channel
+
+```go
+ch <- 10
+```
+
+---
+
+# 🔹 Receive Data from Channel
+
+```go
+value := <-ch
+```
+
+---
+
+# 🔹 Buffered Channel
+
+A buffered channel can store multiple values.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+    ch := make(chan int, 2)
+
+    ch <- 10
+    ch <- 20
+
+    fmt.Println(<-ch)
+    fmt.Println(<-ch)
+}
+```
+
+### Output
+
+```text
+10
+20
+```
+
+---
+
+# 🔹 Close a Channel
+
+```go
+close(ch)
+```
+
+---
+
+# 📝 Real-Life Problems
+
+## Problem 1: Download Two Files Simultaneously
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func download(file string) {
+    fmt.Println("Downloading", file)
+}
+
+func main() {
+
+    go download("File1")
+    go download("File2")
+
+    time.Sleep(time.Second)
+}
+```
+
+---
+
+## Problem 2: Process Student Results
+
+```go
+package main
+
+import "fmt"
+
+func calculate(ch chan string) {
+    ch <- "Result Published"
+}
+
+func main() {
+
+    ch := make(chan string)
+
+    go calculate(ch)
+
+    fmt.Println(<-ch)
+}
+```
+
+---
+
+## Problem 3: Online Food Order
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func prepareFood() {
+    fmt.Println("Food is Being Prepared")
+}
+
+func main() {
+
+    go prepareFood()
+
+    time.Sleep(time.Second)
+}
+```
+
+---
+
+## Problem 4: Bank Transaction Notification
+
+```go
+package main
+
+import "fmt"
+
+func sendNotification(ch chan string) {
+    ch <- "Transaction Successful"
+}
+
+func main() {
+
+    ch := make(chan string)
+
+    go sendNotification(ch)
+
+    fmt.Println(<-ch)
+}
+```
+
+---
+
+## Problem 5: Multiple Workers
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func worker(id int) {
+    fmt.Println("Worker", id, "Started")
+}
+
+func main() {
+
+    for i := 1; i <= 3; i++ {
+        go worker(i)
+    }
+
+    time.Sleep(time.Second)
+}
+```
+
+---
+
+# 📊 Goroutine vs Thread
+
+| Goroutine             | Thread            |
+| --------------------- | ----------------- |
+| Lightweight           | Heavyweight       |
+| Managed by Go Runtime | Managed by OS     |
+| Low Memory Usage      | High Memory Usage |
+| Faster                | Slower            |
+
+---
+
+# 📊 Channel Operations
+
+| Operation | Syntax         |
+| --------- | -------------- |
+| Create    | make(chan int) |
+| Send      | ch <- value    |
+| Receive   | <-ch           |
+| Close     | close(ch)      |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a Goroutine?
+
+A Goroutine is a lightweight thread managed by the Go runtime.
+
+---
+
+### Q2. Which keyword is used to create a Goroutine?
+
+```go
+go
+```
+
+---
+
+### Q3. What is a Channel?
+
+A channel is a communication mechanism between Goroutines.
+
+---
+
+### Q4. Which function creates a channel?
+
+```go
+make()
+```
+
+Example:
+
+```go
+ch := make(chan int)
+```
+
+---
+
+### Q5. How do you send data to a channel?
+
+```go
+ch <- value
+```
+
+---
+
+### Q6. How do you receive data from a channel?
+
+```go
+value := <-ch
+```
+
+---
+
+### Q7. What is a Buffered Channel?
+
+A buffered channel can hold multiple values before they are received.
+
+---
+
+### Q8. Why is `time.Sleep()` used in Goroutine examples?
+
+It prevents the main function from exiting before Goroutines finish execution.
+
+---
+
+# 📝 Quick Revision
+
+```text
+Concurrency
+      │
+      ├── Goroutines
+      │      └── go keyword
+      │
+      ├── Channels
+      │      ├── make()
+      │      ├── Send (<-)
+      │      ├── Receive (<-)
+      │      └── close()
+      │
+      └── Buffered Channels
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Goroutines are lightweight threads that enable concurrent execution, and Channels provide safe communication between Goroutines in Go.**
+
+---
+
+⭐ **Next Topic:** Packages and Modules in Go
