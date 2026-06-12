@@ -1,0 +1,556 @@
+# 🚀 Role-Based Authentication (RBAC) with JWT and Gin Framework
+
+## 📖 What is RBAC?
+
+**RBAC (Role-Based Access Control)** is a security mechanism that grants access to resources based on a user's role.
+
+Instead of giving permissions to individual users, permissions are assigned to roles.
+
+---
+
+# 🌟 Why RBAC?
+
+* Better Security
+* Easy User Management
+* Scalable Applications
+* Fine-Grained Access Control
+
+---
+
+# 👥 Example Roles
+
+| Role    | Permissions                  |
+| ------- | ---------------------------- |
+| Admin   | Create, Read, Update, Delete |
+| Teacher | Read, Update                 |
+| Student | Read Only                    |
+| Guest   | Limited Access               |
+
+---
+
+# 🔐 Authentication vs Authorization vs RBAC
+
+| Feature        | Purpose                  |
+| -------------- | ------------------------ |
+| Authentication | Verify User Identity     |
+| Authorization  | Verify User Permission   |
+| RBAC           | Permission Based on Role |
+
+---
+
+# 🚀 Project Flow
+
+```text
+User Login
+     │
+     ▼
+Verify Username & Password
+     │
+     ▼
+Generate JWT Token
+     │
+     ▼
+Store User Role
+     │
+     ▼
+Send Token
+     │
+     ▼
+Protected API
+     │
+     ▼
+JWT Middleware
+     │
+     ▼
+Role Middleware
+     │
+     ▼
+Allow / Deny Access
+```
+
+---
+
+# 📦 Install Packages
+
+```bash
+go get github.com/gin-gonic/gin
+
+go get github.com/golang-jwt/jwt/v5
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+RBAC-API/
+│
+├── main.go
+├── middleware/
+│      ├── auth.go
+│      └── role.go
+├── controllers/
+├── models/
+├── routes/
+└── utils/
+```
+
+---
+
+# 🛠 Step 1: Create JWT Claims
+
+```go
+type Claims struct {
+    Username string `json:"username"`
+    Role     string `json:"role"`
+    jwt.RegisteredClaims
+}
+```
+
+The JWT token will store:
+
+* Username
+* Role
+* Expiration Time
+
+---
+
+# 🛠 Step 2: Generate JWT Token
+
+```go
+package main
+
+import (
+    "time"
+
+    "github.com/golang-jwt/jwt/v5"
+)
+
+var jwtKey = []byte("my_secret_key")
+
+type Claims struct {
+    Username string `json:"username"`
+    Role     string `json:"role"`
+    jwt.RegisteredClaims
+}
+
+func GenerateToken(username, role string) (string, error) {
+
+    expirationTime := time.Now().Add(24 * time.Hour)
+
+    claims := Claims{
+        Username: username,
+        Role: role,
+        RegisteredClaims: jwt.RegisteredClaims{
+            ExpiresAt: jwt.NewNumericDate(expirationTime),
+        },
+    }
+
+    token := jwt.NewWithClaims(
+        jwt.SigningMethodHS256,
+        claims,
+    )
+
+    return token.SignedString(jwtKey)
+}
+```
+
+---
+
+# 🛠 Step 3: Login API
+
+```go
+func Login(c *gin.Context) {
+
+    username := "anup"
+    role := "admin"
+
+    token, _ := GenerateToken(
+        username,
+        role,
+    )
+
+    c.JSON(200, gin.H{
+        "token": token,
+    })
+}
+```
+
+---
+
+# 🛠 Step 4: Verify JWT Token
+
+```go
+func VerifyToken(tokenString string) (*Claims, error) {
+
+    claims := &Claims{}
+
+    token, err := jwt.ParseWithClaims(
+        tokenString,
+        claims,
+        func(token *jwt.Token) (interface{}, error) {
+            return jwtKey, nil
+        },
+    )
+
+    if err != nil || !token.Valid {
+        return nil, err
+    }
+
+    return claims, nil
+}
+```
+
+---
+
+# 🛠 Step 5: JWT Authentication Middleware
+
+```go
+func AuthMiddleware(c *gin.Context) {
+
+    tokenString := c.GetHeader("Authorization")
+
+    claims, err := VerifyToken(tokenString)
+
+    if err != nil {
+
+        c.JSON(401, gin.H{
+            "message": "Unauthorized",
+        })
+
+        c.Abort()
+        return
+    }
+
+    c.Set("role", claims.Role)
+
+    c.Next()
+}
+```
+
+---
+
+# 🛠 Step 6: Role Middleware
+
+Only users with the required role can access the API.
+
+```go
+func RoleMiddleware(role string) gin.HandlerFunc {
+
+    return func(c *gin.Context) {
+
+        userRole := c.GetString("role")
+
+        if userRole != role {
+
+            c.JSON(403, gin.H{
+                "message": "Access Denied",
+            })
+
+            c.Abort()
+            return
+        }
+
+        c.Next()
+    }
+}
+```
+
+---
+
+# 🛠 Step 7: Protected APIs
+
+## Admin Only API
+
+```go
+func AdminDashboard(c *gin.Context) {
+
+    c.JSON(200, gin.H{
+        "message": "Welcome Admin",
+    })
+}
+```
+
+---
+
+## Student API
+
+```go
+func StudentDashboard(c *gin.Context) {
+
+    c.JSON(200, gin.H{
+        "message": "Welcome Student",
+    })
+}
+```
+
+---
+
+# 🛠 Step 8: Configure Routes
+
+```go
+package main
+
+import (
+    "github.com/gin-gonic/gin"
+)
+
+func main() {
+
+    router := gin.Default()
+
+    router.POST(
+        "/login",
+        Login,
+    )
+
+    admin := router.Group("/admin")
+    admin.Use(
+        AuthMiddleware,
+        RoleMiddleware("admin"),
+    )
+
+    admin.GET(
+        "/dashboard",
+        AdminDashboard,
+    )
+
+    student := router.Group("/student")
+    student.Use(
+        AuthMiddleware,
+        RoleMiddleware("student"),
+    )
+
+    student.GET(
+        "/dashboard",
+        StudentDashboard,
+    )
+
+    router.Run(":8080")
+}
+```
+
+---
+
+# 🚀 API Testing
+
+## Login
+
+```http
+POST /login
+```
+
+### Response
+
+```json
+{
+   "token":"eyJhbGciOiJIUzI1Ni..."
+}
+```
+
+---
+
+## Admin Access
+
+```http
+GET /admin/dashboard
+```
+
+### Header
+
+```text
+Authorization: Bearer <JWT_TOKEN>
+```
+
+### Response
+
+```json
+{
+    "message":"Welcome Admin"
+}
+```
+
+---
+
+## Unauthorized Access
+
+Student trying to access Admin API:
+
+### Response
+
+```json
+{
+    "message":"Access Denied"
+}
+```
+
+---
+
+# 🌟 Real-Life RBAC Example
+
+## Hospital Management System
+
+| Role         | Access            |
+| ------------ | ----------------- |
+| Admin        | Full Access       |
+| Doctor       | Patient Records   |
+| Nurse        | View Patients     |
+| Receptionist | Register Patients |
+
+---
+
+## E-Commerce System
+
+| Role     | Access          |
+| -------- | --------------- |
+| Admin    | Manage Products |
+| Seller   | Add Products    |
+| Customer | Buy Products    |
+
+---
+
+## College Management System
+
+| Role    | Access          |
+| ------- | --------------- |
+| Admin   | Manage All      |
+| Teacher | Manage Students |
+| Student | View Results    |
+
+---
+
+# 📊 RBAC Architecture
+
+```text
+Client
+   │
+   ▼
+Login
+   │
+   ▼
+JWT Token
+   │
+   ▼
+Authentication Middleware
+   │
+   ▼
+Authorization Middleware
+   │
+   ▼
+Role Check
+   │
+   ├── Admin
+   ├── Student
+   └── Teacher
+   │
+   ▼
+Protected Resource
+```
+
+---
+
+# 🔒 Best Practices
+
+* Use Strong Secret Keys
+* Store Secrets in Environment Variables
+* Set Token Expiration
+* Use HTTPS
+* Implement Refresh Tokens
+* Follow Least Privilege Principle
+* Validate Every Request
+
+---
+
+# 📦 Common HTTP Status Codes
+
+| Code | Meaning               |
+| ---- | --------------------- |
+| 200  | Success               |
+| 201  | Created               |
+| 400  | Bad Request           |
+| 401  | Unauthorized          |
+| 403  | Forbidden             |
+| 404  | Not Found             |
+| 500  | Internal Server Error |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is RBAC?
+
+RBAC (Role-Based Access Control) controls access based on user roles.
+
+---
+
+### Q2. What is the difference between Authentication and Authorization?
+
+* Authentication → Who are you?
+* Authorization → What can you access?
+
+---
+
+### Q3. Why do we store roles inside JWT?
+
+To identify user permissions without querying the database for every request.
+
+---
+
+### Q4. Which HTTP status code is returned when access is denied?
+
+```text
+403 Forbidden
+```
+
+---
+
+### Q5. Which Gin function stores user data in the request context?
+
+```go
+c.Set()
+```
+
+---
+
+### Q6. Which Gin function reads stored context data?
+
+```go
+c.GetString()
+```
+
+---
+
+### Q7. What is the purpose of middleware?
+
+Middleware executes common logic such as authentication, authorization, logging, and validation before the request reaches the API.
+
+---
+
+# 📝 Quick Revision
+
+```text
+RBAC
+ │
+ ├── JWT
+ ├── Authentication
+ ├── Authorization
+ ├── User Roles
+ │
+ ├── Admin
+ ├── Teacher
+ ├── Student
+ │
+ ├── Auth Middleware
+ ├── Role Middleware
+ └── Protected APIs
+```
+
+---
+
+# 💡 One-Line Definition
+
+**RBAC with JWT and Gin Framework secures APIs by authenticating users with JWT tokens and authorizing access based on their assigned roles.**
+
+---
+
+⭐ **Next Topic:** Middleware in Gin (Logging, Recovery, CORS, Custom Middleware) 🚀
