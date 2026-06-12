@@ -1,0 +1,506 @@
+# 🚀 JWT Authentication and Authorization in Go
+
+## 📖 What is JWT?
+
+**JWT (JSON Web Token)** is a secure way to transmit information between a client and a server.
+
+JWT is commonly used for:
+
+* User Login
+* Authentication
+* Authorization
+* Secure REST APIs
+
+---
+
+# 🔐 Authentication vs Authorization
+
+| Authentication         | Authorization           |
+| ---------------------- | ----------------------- |
+| Verifies User Identity | Checks User Permissions |
+| Login Process          | Access Control          |
+| "Who are you?"         | "What can you do?"      |
+
+---
+
+# 🚀 JWT Structure
+
+A JWT consists of three parts:
+
+```text
+Header.Payload.Signature
+```
+
+Example:
+
+```text
+xxxxx.yyyyy.zzzzz
+```
+
+---
+
+## 🔹 Header
+
+Contains token type and algorithm.
+
+```json
+{
+   "alg":"HS256",
+   "typ":"JWT"
+}
+```
+
+---
+
+## 🔹 Payload
+
+Contains user information.
+
+```json
+{
+   "username":"anup",
+   "role":"admin"
+}
+```
+
+---
+
+## 🔹 Signature
+
+Used to verify that the token has not been modified.
+
+---
+
+# 🌟 JWT Flow
+
+```text
+User Login
+     │
+     ▼
+Username & Password
+     │
+     ▼
+Server Verification
+     │
+     ▼
+Generate JWT Token
+     │
+     ▼
+Client Stores Token
+     │
+     ▼
+Client Sends Token
+     │
+     ▼
+Server Validates Token
+     │
+     ▼
+Access Protected API
+```
+
+---
+
+# 📦 Install JWT Package
+
+```bash
+go get github.com/golang-jwt/jwt/v5
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+JWT-API/
+│
+├── main.go
+├── go.mod
+├── controllers/
+├── middleware/
+├── models/
+└── utils/
+```
+
+---
+
+# 🛠 Step 1: Import Packages
+
+```go
+import (
+    "time"
+
+    "github.com/golang-jwt/jwt/v5"
+)
+```
+
+---
+
+# 🛠 Step 2: Create Secret Key
+
+```go
+var jwtKey = []byte("my_secret_key")
+```
+
+---
+
+# 🛠 Step 3: Create Claims
+
+```go
+type Claims struct {
+    Username string `json:"username"`
+    jwt.RegisteredClaims
+}
+```
+
+---
+
+# 🛠 Step 4: Generate JWT Token
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+
+    "github.com/golang-jwt/jwt/v5"
+)
+
+var jwtKey = []byte("my_secret_key")
+
+type Claims struct {
+    Username string `json:"username"`
+    jwt.RegisteredClaims
+}
+
+func generateToken(username string) (string, error) {
+
+    expirationTime := time.Now().Add(24 * time.Hour)
+
+    claims := &Claims{
+        Username: username,
+        RegisteredClaims: jwt.RegisteredClaims{
+            ExpiresAt: jwt.NewNumericDate(expirationTime),
+        },
+    }
+
+    token := jwt.NewWithClaims(
+        jwt.SigningMethodHS256,
+        claims,
+    )
+
+    return token.SignedString(jwtKey)
+}
+
+func main() {
+
+    token, _ := generateToken("anup")
+
+    fmt.Println(token)
+}
+```
+
+---
+
+# 🛠 Step 5: Verify JWT Token
+
+```go
+func verifyToken(tokenString string) (*Claims, error) {
+
+    claims := &Claims{}
+
+    token, err := jwt.ParseWithClaims(
+        tokenString,
+        claims,
+        func(token *jwt.Token) (interface{}, error) {
+            return jwtKey, nil
+        },
+    )
+
+    if err != nil || !token.Valid {
+        return nil, err
+    }
+
+    return claims, nil
+}
+```
+
+---
+
+# 🛠 Step 6: Login API
+
+```go
+func Login(c *gin.Context) {
+
+    token, _ := generateToken("anup")
+
+    c.JSON(200, gin.H{
+        "token": token,
+    })
+}
+```
+
+### Response
+
+```json
+{
+   "token":"eyJhbGciOiJIUzI1NiIs..."
+}
+```
+
+---
+
+# 🛠 Step 7: JWT Middleware
+
+```go
+func AuthMiddleware(c *gin.Context) {
+
+    tokenString := c.GetHeader("Authorization")
+
+    _, err := verifyToken(tokenString)
+
+    if err != nil {
+        c.JSON(401, gin.H{
+            "message":"Unauthorized",
+        })
+        c.Abort()
+        return
+    }
+
+    c.Next()
+}
+```
+
+---
+
+# 🛠 Step 8: Protect API
+
+```go
+router.GET(
+    "/profile",
+    AuthMiddleware,
+    Profile,
+)
+```
+
+---
+
+# 🛠 Step 9: Protected API
+
+```go
+func Profile(c *gin.Context) {
+
+    c.JSON(200, gin.H{
+        "message":"Welcome to Protected API",
+    })
+}
+```
+
+---
+
+# 🚀 API Testing
+
+---
+
+## Login
+
+```http
+POST /login
+```
+
+### Response
+
+```json
+{
+   "token":"eyJhbGciOiJIUzI1Ni..."
+}
+```
+
+---
+
+## Access Protected Route
+
+```http
+GET /profile
+```
+
+### Header
+
+```text
+Authorization: eyJhbGciOiJIUzI1Ni...
+```
+
+---
+
+### Response
+
+```json
+{
+   "message":"Welcome to Protected API"
+}
+```
+
+---
+
+# 🌟 Complete Gin Router
+
+```go
+router := gin.Default()
+
+router.POST("/login", Login)
+
+router.GET(
+    "/profile",
+    AuthMiddleware,
+    Profile,
+)
+
+router.Run(":8080")
+```
+
+---
+
+# 📊 JWT Authentication Flow
+
+```text
+Client
+   │
+   ▼
+Login API
+   │
+   ▼
+Generate JWT
+   │
+   ▼
+Return Token
+   │
+   ▼
+Store Token
+   │
+   ▼
+Send Token in Header
+   │
+   ▼
+JWT Middleware
+   │
+   ▼
+Verify Token
+   │
+   ▼
+Protected API Access
+```
+
+---
+
+# 🔒 Best Practices
+
+* Use Strong Secret Keys
+* Set Token Expiration
+* Always Use HTTPS
+* Store Secrets in Environment Variables
+* Validate JWT Signature
+* Refresh Expired Tokens
+
+---
+
+# 📦 Common HTTP Status Codes
+
+| Code | Meaning               |
+| ---- | --------------------- |
+| 200  | Success               |
+| 201  | Created               |
+| 400  | Bad Request           |
+| 401  | Unauthorized          |
+| 403  | Forbidden             |
+| 404  | Not Found             |
+| 500  | Internal Server Error |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is JWT?
+
+JWT (JSON Web Token) is a secure token used for authentication and authorization.
+
+---
+
+### Q2. What are the three parts of JWT?
+
+```text
+Header
+Payload
+Signature
+```
+
+---
+
+### Q3. Which package is commonly used for JWT in Go?
+
+```bash
+github.com/golang-jwt/jwt/v5
+```
+
+---
+
+### Q4. What is the difference between Authentication and Authorization?
+
+* Authentication → Verifies identity.
+* Authorization → Checks permissions.
+
+---
+
+### Q5. Where is JWT usually sent?
+
+```text
+Authorization Header
+```
+
+Example:
+
+```text
+Authorization: Bearer <token>
+```
+
+---
+
+### Q6. Which HTTP status code is returned for unauthorized access?
+
+```text
+401
+```
+
+---
+
+### Q7. Why do we use JWT Middleware?
+
+JWT Middleware protects API routes by validating user tokens before allowing access.
+
+---
+
+# 📝 Quick Revision
+
+```text
+JWT
+ │
+ ├── Header
+ ├── Payload
+ ├── Signature
+ │
+ ├── Login API
+ ├── Generate Token
+ ├── Verify Token
+ ├── Middleware
+ ├── Protected Routes
+ └── Authorization Header
+```
+
+---
+
+# 💡 One-Line Definition
+
+**JWT Authentication uses secure tokens to verify user identity, while Authorization controls what authenticated users are allowed to access.**
+
+---
+
+⭐ **Next Topic:** Role-Based Authentication (RBAC) with JWT and Gin Framework 🚀
