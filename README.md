@@ -1,7 +1,7 @@
-# 🚀 Golang Beginner to Advanced Roadmap
+# 🚀 Go Beginner to Advanced
 
 <p align="center">
-  <img src="Roadmap/golang-roadmap-poster.png" alt="Golang Roadmap" width="900">
+  <img src="GoBeginnerToAdvanced.png" alt="Go Roadmap" width="900">
 </p>
 
 <p align="center">
@@ -9,87 +9,102 @@
 </p>
 
 <p align="center">
-  Learn • Practice • Build Projects • Crack Interviews
+  Learn • Build Projects • Master Backend Development • Crack Interviews
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Go-1.24+-00ADD8?style=for-the-badge&logo=go">
+  <img src="https://img.shields.io/badge/Backend-Development-success?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Open%20Source-Welcome-blue?style=for-the-badge">
+  <img src="https://img.shields.io/github/license/anup-sys/Go-Beginner-to-Advanced?style=for-the-badge">
 </p>
 
 ---
 
-## 📖 About
+# 📖 About
 
-This repository is designed to help developers master **Golang (Go)** from scratch to an advanced level.
+This repository provides a structured roadmap to learn **Golang (Go)** from scratch and become a proficient Backend Developer.
 
 Whether you are preparing for:
 
-- 💼 SDE Internships
-- 🏢 Product-Based Companies
-- ☁️ Backend Development
-- 🚀 Cloud & DevOps
-- 🎯 Open Source Contributions
+* 💼 SDE Internships
+* 🏢 Product-Based Companies
+* 🌐 Backend Development
+* ☁️ Cloud Native Development
+* 🚀 Open Source Contributions
 
-This roadmap will guide you step by step.
+This roadmap helps you learn Go step by step with theory, examples, and real-world projects.
 
 ---
 
-# 🛣️ Roadmap
+# 🛣️ Learning Roadmap
 
 ## 🟢 Beginner
 
-- Introduction to Go
-- Installation & Setup
-- Hello World
-- Variables
-- Data Types
-- Constants
-- Operators
-- Input & Output
-- Conditional Statements
-- Loops
-- Functions
+* Introduction to Go
+* Installation and Setup of Go
+* Variables and Data Types
+* Constants and Operators
+* Input and Output
+* Conditional Statements
+* Loops
+* Arrays and Slices
+* Maps and Structs
+* Functions
+* Pointers and Memory Management
 
 ---
 
 ## 🔵 Intermediate
 
-- Arrays
-- Slices
-- Maps
-- Structs
-- Pointers
-- Methods
-- Interfaces
-- Packages
-- Error Handling
+* Methods and Interfaces
+* Packages and Modules
+* File Handling
+* Error Handling
+* Goroutines and Concurrency
+* Channels
+* Context Package
+* JSON Handling
 
 ---
 
-## 🟣 Advanced
+## 🟣 Backend Development
 
-- File Handling
-- JSON Handling
-- Goroutines
-- Channels
-- Select Statement
-- WaitGroup & Mutex
-- Context Package
-- Generics
-- Testing
-- Benchmarking
+* REST API Development
+* Building REST API with Gin Framework
+* Building CRUD API with Go and MySQL
+* JWT Authentication and Authorization
+* Role-Based Authentication (RBAC)
+* Middleware
+* Database Integration
+* Environment Variables
 
 ---
 
-## 🟠 Expert
+## 🔴 Advanced
 
-- HTTP Server
-- REST APIs
-- Middleware
-- JWT Authentication
-- Database Integration
-- SQL & NoSQL
-- Logging
-- Clean Architecture
-- Microservices
-- Docker
-- Deployment
+* Dependency Injection
+* Clean Architecture
+* Logging
+* Testing
+* Docker
+* Redis
+* gRPC
+* WebSocket
+* Microservices
+* Kafka Basics
+
+---
+
+## ⚫ Expert
+
+* System Design
+* Performance Optimization
+* CI/CD
+* Kubernetes Basics
+* AWS Deployment
+* Monitoring and Logging
+* Distributed Systems
 
 ---
 
@@ -98,40 +113,46 @@ This roadmap will guide you step by step.
 ```text
 Go-Beginner-to-Advanced/
 │
-├── Roadmap/
-├── 01-Basics/
-├── 02-Control-Flow/
-├── 03-Functions/
-├── 04-Arrays-Slices/
-├── 05-Maps/
-├── 06-Structs/
-├── 07-Pointers/
-├── 08-Methods-Interfaces/
-├── 09-Error-Handling/
-├── 10-File-Handling/
-├── 11-Concurrency/
-├── 12-Goroutines/
-├── 13-Channels/
-├── 14-Generics/
-├── 15-REST-API/
-├── 16-Database/
-├── 17-Testing/
-├── 18-Projects/
+├── README.md
+├── GoBeginnerToAdvanced.png
+│
+├── Introduction to Go/
+├── Installation and Setup of Go/
+├── Variables and Data Types in Go/
+├── Constants and Operators in Go/
+├── Input and Output in Go/
+├── Conditional Statements in Go/
+├── Loops in Go/
+├── Arrays and Slices in Go/
+├── Maps and Structs in Go/
+├── Functions in Go/
+├── Pointers and Memory Management in Go/
+├── Methods and Interfaces in Go/
+├── Packages and Modules in Go/
+├── File Handling in Go/
+├── Goroutines and Concurrency in Go/
+├── REST API Development in Go/
+├── Building REST API with Gin Framework/
+├── Building CRUD API with Go and MySQL/
+├── JWT Authentication and Authorization in Go/
+├── Role-Based Authentication (RBAC)/
 └── Resources/
 ```
 
 ---
 
-# 🛠 Tools & Technologies
+# 🛠 Tech Stack
 
-- Golang
-- Git & GitHub
-- VS Code / GoLand
-- Postman
-- MySQL
-- MongoDB
-- Docker
-- Linux
+* Go (Golang)
+* Gin Framework
+* MySQL
+* GORM
+* JWT
+* REST API
+* Docker
+* Git & GitHub
+* Linux
+* Postman
 
 ---
 
@@ -139,29 +160,30 @@ Go-Beginner-to-Advanced/
 
 ## Beginner
 
-- Calculator
-- Student Management System
-- Bank Management System
+* Calculator Program
+* Student Grade System
+* Bank Account System
 
 ## Intermediate
 
-- Todo API
-- Library Management System
-- URL Shortener
+* CLI To-Do Application
+* File Management System
+* JSON Parser
 
 ## Advanced
 
-- Authentication System
-- Blog API
-- Chat Application
-- File Server
+* REST API
+* CRUD API with MySQL
+* JWT Authentication System
+* RBAC Authentication
 
 ## Expert
 
-- E-Commerce Backend
-- API Gateway
-- Microservices
-- Real-Time Chat App
+* E-Commerce Backend
+* Hospital Management System
+* Hotel Management System
+* URL Shortener
+* Microservices Project
 
 ---
 
@@ -169,76 +191,104 @@ Go-Beginner-to-Advanced/
 
 ## Official Documentation
 
-https://go.dev/doc/
+* https://go.dev
+* https://go.dev/doc
 
-## Tour of Go
+## Framework
 
-https://go.dev/tour/
+* https://gin-gonic.com
 
-## Go by Example
+## Practice
 
-https://gobyexample.com/
-
-## Effective Go
-
-https://go.dev/doc/effective_go
+* https://exercism.org/tracks/go
+* https://leetcode.com
 
 ---
 
 # 🎯 Interview Preparation
 
-This repository also covers:
+Topics Covered:
 
-- Go Interview Questions
-- Backend Interview Questions
-- Concurrency Concepts
-- REST API Design
-- Database Fundamentals
-- System Design Basics
-
----
-
-# ⭐ Best Practices
-
-- Write clean code
-- Follow Go conventions
-- Handle errors properly
-- Write tests
-- Build real-world projects
-- Read source code
-- Contribute to open source
+* Go Basics
+* OOP Concepts in Go
+* Structs and Interfaces
+* Pointers
+* Concurrency
+* Goroutines
+* Channels
+* REST APIs
+* MySQL
+* JWT
+* Gin Framework
+* System Design
 
 ---
 
-# 📅 Suggested Learning Plan
+# 📅 Suggested 8-Week Learning Plan
 
 ## Week 1
-- Basics
-- Variables
-- Data Types
-- Operators
-- Loops
+
+* Introduction
+* Installation
+* Variables
+* Operators
 
 ## Week 2
-- Functions
-- Arrays
-- Slices
-- Maps
-- Structs
+
+* Loops
+* Arrays
+* Slices
+* Maps
 
 ## Week 3
-- Pointers
-- Interfaces
-- Error Handling
-- Goroutines
-- Channels
+
+* Functions
+* Structs
+* Interfaces
+* Pointers
 
 ## Week 4
-- REST APIs
-- Database
-- Testing
-- Docker
-- Build Projects
+
+* Packages
+* Modules
+* File Handling
+* Concurrency
+
+## Week 5
+
+* REST API Development
+* Gin Framework
+
+## Week 6
+
+* CRUD API
+* MySQL
+* GORM
+
+## Week 7
+
+* JWT Authentication
+* RBAC
+
+## Week 8
+
+* Build Real Projects
+* Docker
+* Deployment
+
+---
+
+# 🌟 Best Practices
+
+* Write Clean Code
+* Follow Go Coding Standards
+* Handle Errors Properly
+* Keep Functions Small
+* Use Interfaces Wisely
+* Write Modular Code
+* Build Reusable Packages
+* Write Tests
+* Use Git Effectively
 
 ---
 
@@ -246,20 +296,19 @@ This repository also covers:
 
 Contributions are welcome!
 
-If you have improvements, examples, or projects to add:
-
 1. Fork the repository
 2. Create a feature branch
 3. Commit your changes
-4. Open a Pull Request
+4. Push to GitHub
+5. Open a Pull Request
 
 ---
 
-# 🌟 Support
+# ⭐ Support
 
-If this repository helps you, please consider giving it a ⭐.
+If this repository helps you, please give it a ⭐.
 
-It motivates me to create more high-quality learning resources.
+It motivates me to create more educational content for the developer community.
 
 ---
 
@@ -270,9 +319,9 @@ This project is licensed under the MIT License.
 ---
 
 <p align="center">
-  <b>🚀 Learn Golang • Build Projects • Get Internships • Crack Interviews</b>
+<b>☕ Learn Go • Build Projects • Master Backend • Crack Interviews 🚀</b>
 </p>
 
 <p align="center">
-Made with ❤️ by Anup
+Made with ❤️ by Anup Kumar
 </p>
