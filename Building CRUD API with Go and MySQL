@@ -1,0 +1,451 @@
+# 🚀 Building CRUD API with Go and MySQL
+
+## 📖 What is CRUD?
+
+CRUD stands for:
+
+| Operation | HTTP Method |
+| --------- | ----------- |
+| Create    | POST        |
+| Read      | GET         |
+| Update    | PUT         |
+| Delete    | DELETE      |
+
+CRUD APIs are widely used in:
+
+* Student Management System
+* Hospital Management System
+* Employee Management System
+* E-Commerce Applications
+
+---
+
+# 🎯 Project: Student Management API
+
+We will build APIs for:
+
+```text
+POST    /students
+GET     /students
+GET     /student/{id}
+PUT     /student/{id}
+DELETE  /student/{id}
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+Go-CRUD-API/
+│
+├── main.go
+├── go.mod
+├── database/
+│     └── db.go
+├── models/
+│     └── student.go
+├── handlers/
+│     └── student.go
+└── routes/
+      └── routes.go
+```
+
+---
+
+# 🛠 Step 1: Create Go Module
+
+```bash
+go mod init crudapi
+```
+
+---
+
+# 🛠 Step 2: Install MySQL Driver
+
+```bash
+go get github.com/go-sql-driver/mysql
+```
+
+---
+
+# 🛠 Step 3: Create MySQL Database
+
+```sql
+CREATE DATABASE studentdb;
+
+USE studentdb;
+
+CREATE TABLE students(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    course VARCHAR(100)
+);
+```
+
+---
+
+# 🛠 Step 4: Database Connection
+
+## database/db.go
+
+```go
+package database
+
+import (
+    "database/sql"
+    _ "github.com/go-sql-driver/mysql"
+)
+
+var DB *sql.DB
+
+func ConnectDB() {
+
+    db, err := sql.Open(
+        "mysql",
+        "root:password@tcp(localhost:3306)/studentdb",
+    )
+
+    if err != nil {
+        panic(err)
+    }
+
+    DB = db
+}
+```
+
+---
+
+# 🛠 Step 5: Student Model
+
+## models/student.go
+
+```go
+package models
+
+type Student struct {
+    ID     int    `json:"id"`
+    Name   string `json:"name"`
+    Age    int    `json:"age"`
+    Course string `json:"course"`
+}
+```
+
+---
+
+# 🛠 Step 6: Create Student API (POST)
+
+```go
+func CreateStudent(w http.ResponseWriter, r *http.Request) {
+
+    var student models.Student
+
+    json.NewDecoder(r.Body).Decode(&student)
+
+    query := "INSERT INTO students(name,age,course) VALUES(?,?,?)"
+
+    database.DB.Exec(
+        query,
+        student.Name,
+        student.Age,
+        student.Course,
+    )
+
+    fmt.Fprintf(w, "Student Added Successfully")
+}
+```
+
+---
+
+# 🛠 Step 7: Get All Students (GET)
+
+```go
+func GetStudents(w http.ResponseWriter, r *http.Request) {
+
+    rows, _ := database.DB.Query(
+        "SELECT * FROM students",
+    )
+
+    var students []models.Student
+
+    for rows.Next() {
+
+        var s models.Student
+
+        rows.Scan(
+            &s.ID,
+            &s.Name,
+            &s.Age,
+            &s.Course,
+        )
+
+        students = append(students, s)
+    }
+
+    json.NewEncoder(w).Encode(students)
+}
+```
+
+---
+
+# 🛠 Step 8: Update Student (PUT)
+
+```go
+func UpdateStudent(w http.ResponseWriter, r *http.Request) {
+
+    var student models.Student
+
+    json.NewDecoder(r.Body).Decode(&student)
+
+    database.DB.Exec(
+        "UPDATE students SET name=?,age=?,course=? WHERE id=?",
+        student.Name,
+        student.Age,
+        student.Course,
+        student.ID,
+    )
+
+    fmt.Fprintf(w, "Student Updated")
+}
+```
+
+---
+
+# 🛠 Step 9: Delete Student (DELETE)
+
+```go
+func DeleteStudent(w http.ResponseWriter, r *http.Request) {
+
+    id := r.URL.Query().Get("id")
+
+    database.DB.Exec(
+        "DELETE FROM students WHERE id=?",
+        id,
+    )
+
+    fmt.Fprintf(w, "Student Deleted")
+}
+```
+
+---
+
+# 🛠 Step 10: Main Function
+
+## main.go
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+
+    "crudapi/database"
+)
+
+func main() {
+
+    database.ConnectDB()
+
+    http.HandleFunc("/students", GetStudents)
+    http.HandleFunc("/student/add", CreateStudent)
+    http.HandleFunc("/student/update", UpdateStudent)
+    http.HandleFunc("/student/delete", DeleteStudent)
+
+    fmt.Println("Server Running at Port 8080")
+
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+---
+
+# 🚀 API Testing
+
+## Create Student
+
+### Request
+
+```http
+POST /student/add
+```
+
+### JSON
+
+```json
+{
+    "name":"Anup",
+    "age":21,
+    "course":"Golang"
+}
+```
+
+---
+
+## Get All Students
+
+```http
+GET /students
+```
+
+### Response
+
+```json
+[
+    {
+        "id":1,
+        "name":"Anup",
+        "age":21,
+        "course":"Golang"
+    }
+]
+```
+
+---
+
+## Update Student
+
+```http
+PUT /student/update
+```
+
+```json
+{
+    "id":1,
+    "name":"Anup Kumar",
+    "age":22,
+    "course":"Backend Development"
+}
+```
+
+---
+
+## Delete Student
+
+```http
+DELETE /student/delete?id=1
+```
+
+---
+
+# 📊 CRUD Flow
+
+```text
+Client
+   │
+   ▼
+HTTP Request
+   │
+   ▼
+Go API
+   │
+   ▼
+MySQL Database
+   │
+   ▼
+JSON Response
+```
+
+---
+
+# 📦 Packages Used
+
+| Package             | Purpose             |
+| ------------------- | ------------------- |
+| net/http            | HTTP Server         |
+| encoding/json       | JSON Handling       |
+| database/sql        | Database Operations |
+| go-sql-driver/mysql | MySQL Driver        |
+| fmt                 | Input/Output        |
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is CRUD?
+
+CRUD stands for Create, Read, Update, and Delete.
+
+---
+
+### Q2. Which package is used for MySQL in Go?
+
+```go
+database/sql
+```
+
+with
+
+```go
+github.com/go-sql-driver/mysql
+```
+
+---
+
+### Q3. Which HTTP method is used to create data?
+
+```text
+POST
+```
+
+---
+
+### Q4. Which HTTP method is used to update data?
+
+```text
+PUT
+```
+
+---
+
+### Q5. Which HTTP method is used to delete data?
+
+```text
+DELETE
+```
+
+---
+
+### Q6. Which function converts JSON into Go struct?
+
+```go
+json.NewDecoder(r.Body).Decode()
+```
+
+---
+
+### Q7. Which function converts Go struct into JSON?
+
+```go
+json.NewEncoder(w).Encode()
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+CRUD API
+    │
+    ├── POST
+    ├── GET
+    ├── PUT
+    ├── DELETE
+    │
+    ├── Go
+    ├── MySQL
+    ├── JSON
+    ├── database/sql
+    └── net/http
+```
+
+---
+
+# 💡 One-Line Definition
+
+**A CRUD API in Go allows users to Create, Read, Update, and Delete data stored in a MySQL database using HTTP requests.**
+
+---
+
+⭐ **Next Topic:** Building REST API with Gin Framework and MySQL 🚀
