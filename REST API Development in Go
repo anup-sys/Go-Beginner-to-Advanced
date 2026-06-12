@@ -1,0 +1,450 @@
+# 🚀 REST API Development in Go
+
+## 📖 What is a REST API?
+
+**REST (Representational State Transfer) API** is a way for applications to communicate over the internet using HTTP.
+
+A REST API allows clients to:
+
+* Create Data
+* Read Data
+* Update Data
+* Delete Data
+
+These operations are commonly known as **CRUD Operations**.
+
+---
+
+# 🌐 HTTP Methods
+
+| Method | Operation     |
+| ------ | ------------- |
+| GET    | Retrieve Data |
+| POST   | Create Data   |
+| PUT    | Update Data   |
+| DELETE | Delete Data   |
+
+---
+
+# 🚀 Why Use REST APIs?
+
+* Client-Server Communication
+* Mobile Applications
+* Web Applications
+* Microservices
+* Cloud Applications
+
+---
+
+# 📦 Required Package
+
+Go provides the built-in `net/http` package.
+
+```go
+import (
+    "fmt"
+    "net/http"
+)
+```
+
+---
+
+# 🔹 Create Your First REST API
+
+### 📝 Problem:
+
+Create a simple API that returns "Welcome to Golang API".
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func home(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Welcome to Golang API")
+}
+
+func main() {
+    http.HandleFunc("/", home)
+
+    fmt.Println("Server Running on Port 8080")
+
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+### Output
+
+Open Browser:
+
+```text
+http://localhost:8080
+```
+
+Result:
+
+```text
+Welcome to Golang API
+```
+
+---
+
+# 🔹 Create Multiple Routes
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func home(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Home Page")
+}
+
+func about(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "About Page")
+}
+
+func main() {
+
+    http.HandleFunc("/", home)
+    http.HandleFunc("/about", about)
+
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+---
+
+# 🔹 Return JSON Response
+
+```go
+package main
+
+import (
+    "encoding/json"
+    "net/http"
+)
+
+type Student struct {
+    Name  string
+    Marks int
+}
+
+func getStudent(w http.ResponseWriter, r *http.Request) {
+
+    student := Student{
+        Name: "Anup",
+        Marks: 95,
+    }
+
+    w.Header().Set("Content-Type", "application/json")
+
+    json.NewEncoder(w).Encode(student)
+}
+
+func main() {
+    http.HandleFunc("/student", getStudent)
+
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+### Output
+
+```json
+{
+  "Name": "Anup",
+  "Marks": 95
+}
+```
+
+---
+
+# 🔹 Handle GET Request
+
+### Problem:
+
+Get employee information.
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func getEmployee(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Employee Information")
+}
+
+func main() {
+    http.HandleFunc("/employee", getEmployee)
+
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+---
+
+# 🔹 Handle POST Request
+
+```go
+package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func createUser(w http.ResponseWriter, r *http.Request) {
+
+    if r.Method == "POST" {
+        fmt.Fprintf(w, "User Created Successfully")
+    }
+}
+
+func main() {
+    http.HandleFunc("/user", createUser)
+
+    http.ListenAndServe(":8080", nil)
+}
+```
+
+---
+
+# 📝 Real-Life REST API Problems
+
+## Problem 1: Student API
+
+```text
+GET /students
+```
+
+Returns all students.
+
+---
+
+## Problem 2: Employee API
+
+```text
+POST /employee
+```
+
+Creates a new employee.
+
+---
+
+## Problem 3: Product API
+
+```text
+GET /products
+```
+
+Returns all products.
+
+---
+
+## Problem 4: Hospital API
+
+```text
+POST /patient
+```
+
+Adds a new patient.
+
+---
+
+## Problem 5: Library API
+
+```text
+DELETE /book
+```
+
+Removes a book.
+
+---
+
+# 🚀 CRUD Operations
+
+```text
+Create  -> POST
+Read    -> GET
+Update  -> PUT
+Delete  -> DELETE
+```
+
+---
+
+# 📦 Popular Go REST Frameworks
+
+| Framework   | Purpose          |
+| ----------- | ---------------- |
+| net/http    | Standard Library |
+| Gin         | Fast REST APIs   |
+| Echo        | Lightweight APIs |
+| Fiber       | Express.js Style |
+| Gorilla Mux | Advanced Routing |
+
+---
+
+# 🔹 Gin Framework Example
+
+Install Gin:
+
+```bash
+go get github.com/gin-gonic/gin
+```
+
+Example:
+
+```go
+package main
+
+import "github.com/gin-gonic/gin"
+
+func main() {
+
+    router := gin.Default()
+
+    router.GET("/", func(c *gin.Context) {
+        c.JSON(200, gin.H{
+            "message": "Welcome to Gin API",
+        })
+    })
+
+    router.Run(":8080")
+}
+```
+
+---
+
+# 📊 REST API Flow
+
+```text
+Client
+   │
+   ▼
+HTTP Request
+   │
+   ▼
+REST API Server
+   │
+   ▼
+Business Logic
+   │
+   ▼
+Database
+   │
+   ▼
+HTTP Response (JSON)
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+Go-REST-API/
+│
+├── main.go
+├── go.mod
+├── handlers/
+├── models/
+├── routes/
+├── controllers/
+└── database/
+```
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is REST API?
+
+REST API is a web service that allows applications to communicate using HTTP methods.
+
+---
+
+### Q2. Which package is used for basic REST APIs in Go?
+
+```go
+net/http
+```
+
+---
+
+### Q3. Which HTTP method retrieves data?
+
+```text
+GET
+```
+
+---
+
+### Q4. Which HTTP method creates data?
+
+```text
+POST
+```
+
+---
+
+### Q5. Which package converts Go objects to JSON?
+
+```go
+encoding/json
+```
+
+---
+
+### Q6. Name some popular Go REST frameworks.
+
+* Gin
+* Echo
+* Fiber
+* Gorilla Mux
+
+---
+
+### Q7. What are CRUD operations?
+
+```text
+Create -> POST
+Read   -> GET
+Update -> PUT
+Delete -> DELETE
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+REST API
+    │
+    ├── HTTP
+    ├── GET
+    ├── POST
+    ├── PUT
+    ├── DELETE
+    ├── JSON
+    ├── net/http
+    └── Gin Framework
+```
+
+---
+
+# 💡 One-Line Definition
+
+**REST API is a web service architecture that enables communication between applications using HTTP methods and JSON data.**
+
+---
+
+⭐ **Next Topic:** Building CRUD API with Go and MySQL. 🚀
