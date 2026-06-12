@@ -1,0 +1,491 @@
+# 🚀 Building REST API with Gin Framework and MySQL
+
+## 📖 What is Gin?
+
+**Gin** is a high-performance HTTP web framework written in Go.
+
+It is widely used for building:
+
+* REST APIs
+* Microservices
+* Backend Applications
+* Enterprise Systems
+
+---
+
+# 🌟 Why Gin?
+
+* Fast Performance
+* Minimal Memory Usage
+* Easy Routing
+* Middleware Support
+* JSON Validation
+* REST API Development
+
+---
+
+# 🎯 Project: Student Management REST API
+
+We will build:
+
+```text
+POST    /students
+GET     /students
+GET     /students/:id
+PUT     /students/:id
+DELETE  /students/:id
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+Gin-CRUD-API/
+│
+├── main.go
+├── go.mod
+├── database/
+│     └── db.go
+├── models/
+│     └── student.go
+├── controllers/
+│     └── student.go
+├── routes/
+│     └── routes.go
+└── config/
+      └── config.go
+```
+
+---
+
+# 🛠 Step 1: Create Go Module
+
+```bash
+go mod init gincrudapi
+```
+
+---
+
+# 🛠 Step 2: Install Required Packages
+
+```bash
+go get github.com/gin-gonic/gin
+
+go get github.com/go-sql-driver/mysql
+```
+
+---
+
+# 🛠 Step 3: Create MySQL Database
+
+```sql
+CREATE DATABASE studentdb;
+
+USE studentdb;
+
+CREATE TABLE students(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    course VARCHAR(100)
+);
+```
+
+---
+
+# 🛠 Step 4: Database Connection
+
+## database/db.go
+
+```go
+package database
+
+import (
+    "database/sql"
+
+    _ "github.com/go-sql-driver/mysql"
+)
+
+var DB *sql.DB
+
+func ConnectDB() {
+
+    db, err := sql.Open(
+        "mysql",
+        "root:password@tcp(localhost:3306)/studentdb",
+    )
+
+    if err != nil {
+        panic(err)
+    }
+
+    DB = db
+}
+```
+
+---
+
+# 🛠 Step 5: Create Model
+
+## models/student.go
+
+```go
+package models
+
+type Student struct {
+    ID     int    `json:"id"`
+    Name   string `json:"name"`
+    Age    int    `json:"age"`
+    Course string `json:"course"`
+}
+```
+
+---
+
+# 🛠 Step 6: Create Student API
+
+## POST API
+
+```go
+func CreateStudent(c *gin.Context) {
+
+    var student models.Student
+
+    c.BindJSON(&student)
+
+    query := "INSERT INTO students(name,age,course) VALUES(?,?,?)"
+
+    database.DB.Exec(
+        query,
+        student.Name,
+        student.Age,
+        student.Course,
+    )
+
+    c.JSON(200, gin.H{
+        "message": "Student Added",
+    })
+}
+```
+
+---
+
+# 🛠 Step 7: Get All Students
+
+```go
+func GetStudents(c *gin.Context) {
+
+    rows, _ := database.DB.Query(
+        "SELECT * FROM students",
+    )
+
+    var students []models.Student
+
+    for rows.Next() {
+
+        var s models.Student
+
+        rows.Scan(
+            &s.ID,
+            &s.Name,
+            &s.Age,
+            &s.Course,
+        )
+
+        students = append(students, s)
+    }
+
+    c.JSON(200, students)
+}
+```
+
+---
+
+# 🛠 Step 8: Get Student By ID
+
+```go
+func GetStudent(c *gin.Context) {
+
+    id := c.Param("id")
+
+    var student models.Student
+
+    database.DB.QueryRow(
+        "SELECT * FROM students WHERE id=?",
+        id,
+    ).Scan(
+        &student.ID,
+        &student.Name,
+        &student.Age,
+        &student.Course,
+    )
+
+    c.JSON(200, student)
+}
+```
+
+---
+
+# 🛠 Step 9: Update Student
+
+```go
+func UpdateStudent(c *gin.Context) {
+
+    id := c.Param("id")
+
+    var student models.Student
+
+    c.BindJSON(&student)
+
+    database.DB.Exec(
+        "UPDATE students SET name=?,age=?,course=? WHERE id=?",
+        student.Name,
+        student.Age,
+        student.Course,
+        id,
+    )
+
+    c.JSON(200, gin.H{
+        "message": "Student Updated",
+    })
+}
+```
+
+---
+
+# 🛠 Step 10: Delete Student
+
+```go
+func DeleteStudent(c *gin.Context) {
+
+    id := c.Param("id")
+
+    database.DB.Exec(
+        "DELETE FROM students WHERE id=?",
+        id,
+    )
+
+    c.JSON(200, gin.H{
+        "message": "Student Deleted",
+    })
+}
+```
+
+---
+
+# 🛠 Step 11: Configure Routes
+
+## main.go
+
+```go
+package main
+
+import (
+    "github.com/gin-gonic/gin"
+
+    "gincrudapi/database"
+)
+
+func main() {
+
+    database.ConnectDB()
+
+    router := gin.Default()
+
+    router.POST("/students", CreateStudent)
+    router.GET("/students", GetStudents)
+    router.GET("/students/:id", GetStudent)
+    router.PUT("/students/:id", UpdateStudent)
+    router.DELETE("/students/:id", DeleteStudent)
+
+    router.Run(":8080")
+}
+```
+
+---
+
+# 🚀 API Endpoints
+
+## Create Student
+
+```http
+POST /students
+```
+
+```json
+{
+    "name":"Anup",
+    "age":21,
+    "course":"Golang"
+}
+```
+
+---
+
+## Get All Students
+
+```http
+GET /students
+```
+
+---
+
+## Get Student By ID
+
+```http
+GET /students/1
+```
+
+---
+
+## Update Student
+
+```http
+PUT /students/1
+```
+
+```json
+{
+    "name":"Anup Kumar",
+    "age":22,
+    "course":"Backend Development"
+}
+```
+
+---
+
+## Delete Student
+
+```http
+DELETE /students/1
+```
+
+---
+
+# 📊 API Flow
+
+```text
+Client
+   │
+   ▼
+Gin Router
+   │
+   ▼
+Controller
+   │
+   ▼
+MySQL Database
+   │
+   ▼
+JSON Response
+```
+
+---
+
+# 📦 Packages Used
+
+| Package             | Purpose             |
+| ------------------- | ------------------- |
+| gin                 | Web Framework       |
+| database/sql        | Database Operations |
+| go-sql-driver/mysql | MySQL Driver        |
+| encoding/json       | JSON Processing     |
+| fmt                 | Input/Output        |
+
+---
+
+# 🌟 Advantages of Gin
+
+* High Performance
+* Easy Routing
+* Middleware Support
+* JSON Handling
+* REST API Development
+* Production Ready
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is Gin?
+
+Gin is a lightweight and high-performance web framework for Go.
+
+---
+
+### Q2. Which command installs Gin?
+
+```bash
+go get github.com/gin-gonic/gin
+```
+
+---
+
+### Q3. Which method creates a GET API?
+
+```go
+router.GET()
+```
+
+---
+
+### Q4. Which method creates a POST API?
+
+```go
+router.POST()
+```
+
+---
+
+### Q5. How do you read JSON request data?
+
+```go
+c.BindJSON()
+```
+
+---
+
+### Q6. How do you return JSON data?
+
+```go
+c.JSON()
+```
+
+---
+
+### Q7. How do you get URL parameters?
+
+```go
+c.Param("id")
+```
+
+---
+
+# 📝 Quick Revision
+
+```text
+Gin Framework
+      │
+      ├── router.GET()
+      ├── router.POST()
+      ├── router.PUT()
+      ├── router.DELETE()
+      │
+      ├── c.BindJSON()
+      ├── c.JSON()
+      ├── c.Param()
+      │
+      ├── MySQL
+      └── CRUD API
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Gin is a fast and lightweight Go web framework used to build scalable REST APIs with features like routing, middleware, and JSON support.**
+
+---
+
+⭐ **Next Topic:** JWT Authentication and Authorization in Go 🚀
