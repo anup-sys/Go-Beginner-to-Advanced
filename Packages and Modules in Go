@@ -1,0 +1,413 @@
+# 🚀 Packages and Modules in Go
+
+## 📖 What is a Package?
+
+A **Package** is a collection of related Go source files that are organized together.
+
+Packages help to:
+
+* Organize code
+* Reuse code
+* Improve maintainability
+* Build modular applications
+
+---
+
+# 🔹 Types of Packages
+
+## 1. Main Package
+
+Every executable Go program must contain the `main` package.
+
+```go id="fy88jo"
+package main
+```
+
+The execution starts from the `main()` function.
+
+---
+
+## 2. Standard Library Packages
+
+Go provides many built-in packages.
+
+| Package | Purpose                 |
+| ------- | ----------------------- |
+| fmt     | Input and Output        |
+| math    | Mathematical Operations |
+| strings | String Manipulation     |
+| os      | File Handling           |
+| time    | Date and Time           |
+| rand    | Random Numbers          |
+
+---
+
+## Example
+
+### 📝 Problem:
+
+Print a message using the fmt package.
+
+```go id="4hwr1m"
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Welcome to Golang")
+}
+```
+
+### Output
+
+```text id="ec4o4l"
+Welcome to Golang
+```
+
+---
+
+# 🔹 Importing Multiple Packages
+
+```go id="mf5gc9"
+package main
+
+import (
+    "fmt"
+    "math"
+)
+
+func main() {
+    fmt.Println(math.Sqrt(25))
+}
+```
+
+### Output
+
+```text id="n8r7ja"
+5
+```
+
+---
+
+# 🚀 User Defined Package
+
+We can create our own packages.
+
+---
+
+## Folder Structure
+
+```text id="e4hfgq"
+MyProject/
+│
+├── main.go
+└── calculator/
+      └── add.go
+```
+
+---
+
+## add.go
+
+```go id="n7aaj8"
+package calculator
+
+func Add(a, b int) int {
+    return a + b
+}
+```
+
+---
+
+## main.go
+
+```go id="3p49u4"
+package main
+
+import (
+    "fmt"
+    "MyProject/calculator"
+)
+
+func main() {
+    fmt.Println(calculator.Add(10, 20))
+}
+```
+
+### Output
+
+```text id="mk6gvz"
+30
+```
+
+---
+
+# 📖 What is a Module?
+
+A **Module** is a collection of Go packages stored in a single project.
+
+Modules help manage dependencies.
+
+---
+
+# 🔹 Why Modules?
+
+* Dependency Management
+* Version Control
+* Project Organization
+* Package Sharing
+
+---
+
+# 🔹 Create a Module
+
+## Command
+
+```bash id="u7m5lm"
+go mod init projectname
+```
+
+### Example
+
+```bash id="9yvcqj"
+go mod init myproject
+```
+
+### Output
+
+```text id="g8sph3"
+go: creating new go.mod: module myproject
+```
+
+---
+
+# 🔹 go.mod File
+
+Example:
+
+```text id="m4hkfa"
+module myproject
+
+go 1.24
+```
+
+The `go.mod` file stores:
+
+* Module Name
+* Go Version
+* Dependencies
+
+---
+
+# 🔹 Install External Packages
+
+Example:
+
+```bash id="7z7dfn"
+go get github.com/gin-gonic/gin
+```
+
+This downloads the package and updates the module.
+
+---
+
+# 🔹 View Installed Modules
+
+```bash id="owv63h"
+go list -m all
+```
+
+---
+
+# 🔹 Download Dependencies
+
+```bash id="7kqv3b"
+go mod tidy
+```
+
+This removes unused packages and downloads missing packages.
+
+---
+
+# 📝 Real-Life Problems
+
+## Problem 1: Calculator Package
+
+### calculator/add.go
+
+```go id="y7fl0l"
+package calculator
+
+func Add(a, b int) int {
+    return a + b
+}
+```
+
+### main.go
+
+```go id="2x31sz"
+package main
+
+import (
+    "fmt"
+    "MyProject/calculator"
+)
+
+func main() {
+    fmt.Println(calculator.Add(5, 10))
+}
+```
+
+---
+
+## Problem 2: Employee Package
+
+```go id="zb7jlwm"
+package employee
+
+func GetName() string {
+    return "Rahul"
+}
+```
+
+---
+
+## Problem 3: Student Package
+
+```go id="f72xg5"
+package student
+
+func GetMarks() int {
+    return 95
+}
+```
+
+---
+
+# 📊 Common Go Commands
+
+| Command        | Purpose             |
+| -------------- | ------------------- |
+| go run main.go | Run Program         |
+| go build       | Build Executable    |
+| go mod init    | Create Module       |
+| go mod tidy    | Manage Dependencies |
+| go get         | Download Package    |
+| go list -m all | List Modules        |
+
+---
+
+# 📊 Package vs Module
+
+| Package                    | Module                         |
+| -------------------------- | ------------------------------ |
+| Collection of Go Files     | Collection of Packages         |
+| Used for Code Organization | Used for Dependency Management |
+| Smaller Unit               | Larger Unit                    |
+
+---
+
+# 📂 Typical Go Project Structure
+
+```text id="ocjzvz"
+MyProject/
+│
+├── go.mod
+├── go.sum
+├── main.go
+│
+├── calculator/
+│      └── add.go
+│
+├── student/
+│      └── student.go
+│
+└── employee/
+       └── employee.go
+```
+
+---
+
+# 🎯 Interview Questions
+
+### Q1. What is a Package?
+
+A package is a collection of related Go source files.
+
+---
+
+### Q2. Which package is mandatory for an executable Go program?
+
+```go id="z3bk2w"
+main
+```
+
+---
+
+### Q3. What is a Module?
+
+A module is a collection of Go packages managed together.
+
+---
+
+### Q4. Which command creates a Go module?
+
+```bash id="85ssny"
+go mod init projectname
+```
+
+---
+
+### Q5. Which file stores module information?
+
+```text id="d0mwjr"
+go.mod
+```
+
+---
+
+### Q6. Which command installs external packages?
+
+```bash id="4sh7vz"
+go get package-name
+```
+
+---
+
+### Q7. Which command cleans and updates dependencies?
+
+```bash id="l8t49f"
+go mod tidy
+```
+
+---
+
+# 📝 Quick Revision
+
+```text id="n4v9lg"
+Packages
+    │
+    ├── main
+    ├── fmt
+    ├── math
+    ├── strings
+    └── User Defined
+
+Modules
+    │
+    ├── go mod init
+    ├── go.mod
+    ├── go get
+    ├── go mod tidy
+    └── Dependency Management
+```
+
+---
+
+# 💡 One-Line Definition
+
+**Packages organize Go code into reusable units, while Modules manage multiple packages and their dependencies within a project.**
+
+---
+
+⭐ **Next Topic:** REST API Development in Go
